@@ -22,17 +22,30 @@ class Server {
                 require($controller_path);
                 $this->controller = new $controller_name;
                 if (!method_exists($this->controller, $method_name)){
-                    echo "Method not found";
+                    Response::json(array(
+                        'error' => true,
+                        'message' => 'Method not found'
+                    ));
                 }
                 else {
-                    call_user_func_array(
-                        [$this->controller, $method_name], 
-                        Request::dump(get_class($this->controller), $method_name)
-                    );
+                    try {
+                        call_user_func_array(
+                            [$this->controller, $method_name], 
+                            Request::dump(get_class($this->controller), $method_name)
+                        );
+                    } catch (Exception $e) {
+                        Response::json(array(
+                            'error' => true,
+                            'message' => $e->getMessage()
+                        ));
+                    }
                 }
             }
             else {
-                echo "Controller not found";
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'Controller not found'
+                ));
             }
         }
     }
