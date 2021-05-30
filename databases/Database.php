@@ -10,6 +10,8 @@ class Database {
     protected $PASSWORD = "";
     protected $DATABASENAME = "cuoiki_android";
 
+    protected $phongbanTable = 'phongban';
+
     protected function getConnection(){
         return mysqli_connect($this->HOST, $this->USERNAME, $this->PASSWORD, $this->DATABASENAME);
     }

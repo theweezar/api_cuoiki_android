@@ -21,6 +21,11 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        
+        $result = mysqli_query($this->conn,"SELECT * FROM nhanvien");
+        $data = array();
+        for ($i = 0; $i < mysqli_num_rows($result); $i++){
+            array_push($data, mysqli_fetch_assoc($result));
+        }
+        return $data;
     }
 }
