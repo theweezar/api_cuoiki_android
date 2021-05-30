@@ -1,23 +1,34 @@
 <?php
 
-class PhongBanController extends Controller {
-
-    public function home(){
-        echo "method home in PhongBanController";
-    }
-
+class PhongBanController {
     public function test_form(){
         echo "<p>Test action to form</p>";
         echo "<b>GET: </b>";
         echo "<p>".var_dump($_GET)."</p>";
         echo "<b>POST: </b>";
         echo "<p>".var_dump($_POST)."</p>";
-        $this->render('form.html');
+        Response::render('form.html');
     }
 
-    public function show(){
-        $phongbanDb = new PhongBanDatabase();
-        header('Content-Type: application/json');
-        echo json_encode($phongbanDb->select());
+    public function show($argv){
+        $phongban_db = new PhongBanDatabase();
+        Response::json(array(
+            'request' => $argv,
+            'view_data' => $phongban_db->select($argv)
+        ));
+    }
+
+    public function insert($argv){
+        if ($argv['request_method'] === 'POST'){
+            Response::json(array(
+                'request' => $argv
+            ));
+        }
+        else {
+            Response::json(array(
+                'error' => true,
+                'message' => 'Method is not allowed'
+            ), 405);
+        }
     }
 }
