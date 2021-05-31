@@ -12,6 +12,18 @@ class Database {
 
     protected $phongbanTable = 'phongban';
 
+    protected $nhanvienTable = 'nhanvien';
+
+    protected $vanphongphamTable = 'vanphongpham';
+
+    protected $capphatTable = 'capphat';
+
+    protected $nhacungcapTable = 'nhacungcap';
+
+    protected $phieucungcapTable = 'phieucungcap';
+
+    protected $ctphieuccTable = 'chitietphieucc';
+
     protected function getConnection(){
         return mysqli_connect($this->HOST, $this->USERNAME, $this->PASSWORD, $this->DATABASENAME);
     }
