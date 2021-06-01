@@ -1,5 +1,14 @@
 <?php
 
+// entites
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/PhongBanEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/NhanVienEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/VanPhongPhamEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/CapPhatEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/NhaCungCapEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/PhieuCungCapEntity.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../entities/ChiTietCungCapEntity.php');
+
 // databases
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/Database.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/DatabaseInterface.php');

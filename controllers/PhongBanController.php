@@ -22,10 +22,8 @@ class PhongBanController {
     public function insert($argv){
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
-            $params = $argv['params'];
-            $params['mapb'] = strtoupper(checkInput($params['mapb']));
-            $params['tenpb'] = strtoupper(checkInput($params['tenpb']));
-            $phongbanDb->insert($params);
+            $argv['params'] = checkInputParams($argv['params']);
+            $phongbanDb->insert($argv['params']);
             Response::json(array(
                 'request' => $argv,
                 'success' => true
@@ -33,20 +31,14 @@ class PhongBanController {
         }
         else {
             Response::render('insert.html');
-            // Response::json(array(
-            //     'error' => true,
-            //     'message' => 'Method is not allowed'
-            // ), 405);
         }
     }
 
     public function update($argv) {
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
-            $params = $argv['params'];
-            $params['mapb'] = strtoupper(checkInput($params['mapb'])); 
-            $params['tenpb'] = strtoupper(checkInput($params['tenpb']));
-            $phongbanDb->update($params);
+            $argv['params'] = checkInputParams($argv['params']);
+            $phongbanDb->update($argv['params']);
             Response::json(array(
                 'request' => $argv,
                 'success' => true
@@ -63,10 +55,8 @@ class PhongBanController {
     public function remove($argv) {
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
-            $params = $argv['params'];
-            $params['mapb'] = strtoupper(checkInput($params['mapb'])); 
-            $params['tenpb'] = strtoupper(checkInput($params['tenpb']));
-            $phongbanDb->remove($params);
+            $argv['params'] = checkInputParams($argv['params']);
+            $phongbanDb->remove($argv['params']);
             Response::json(array(
                 'request' => $argv,
                 'success' => true

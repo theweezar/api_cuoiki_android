@@ -27,12 +27,12 @@ class PhongBanDatabase extends Database implements DatabaseInterface {
     public function remove($params){
         mysqli_query(
             $this->conn,
-            "DELETE FROM phongban WHERE MAPB=".$argv['mapb'].""
+            "DELETE FROM phongban WHERE MAPB=".$params['mapb'].""
         );
         mysqli_commit($this->conn);
     }
 
-    public function select($argv) {
+    public function select($params) {
         $result = mysqli_query($this->conn,"SELECT * FROM phongban");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){

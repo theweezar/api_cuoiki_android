@@ -9,7 +9,7 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     }
 
     public function insert($params) {
-
+        
     }
 
     public function update($params) {
