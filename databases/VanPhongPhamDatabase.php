@@ -54,4 +54,10 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
         }
         return $data;
     }
+
+    public function isExistID($mavpp) {
+        $result = mysqli_query($this->conn,"SELECT * FROM vanphongpham WHERE 
+        MAVPP= '".$mavpp."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
 }

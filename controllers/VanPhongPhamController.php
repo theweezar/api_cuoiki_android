@@ -8,4 +8,71 @@ class VanPhongPhamController {
             'viewData' => $vppDb->select($argv)
         ));
     }
+
+    public function insert($argv) {
+        if ($argv['request_method'] === 'POST') {
+            $vppDb = new VanPhongPhamDatabase();
+            $argv['params'] = checkInputParams($argv['params']);
+            if (!$vppDb->isExistID($argv['params']['mavpp'])) {
+                $vppDb->insert($argv['params']);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
+            }
+            else {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'MAVPP is exist'
+                ));
+            }
+        }
+        else {
+            Response::render('insert.html');
+        }
+    }
+
+    public function update($argv) {
+        if ($argv['request_method'] === 'POST') {
+            $vppDb = new VanPhongPhamDatabase();
+            $argv['params'] = checkInputParams($argv['params']);
+            if (!$vppDb->isExistID($argv['params']['mavpp'])) {
+                $vppDb->update($argv['params']);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
+            }
+            else {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'MAVPP is exist'
+                ));
+            }
+        }
+        else {
+            Response::json(array(
+                'error' => true,
+                'message' => 'Method is not allowed'
+            ), 405);
+        }
+    }
+
+    public function remove($argv) {
+        if ($argv['request_method'] === 'POST'){
+            $vppDb = new VanPhongPhamDatabase();
+            $argv['params'] = checkInputParams($argv['params']);
+            $vppDb->remove($argv['params']);
+            Response::json(array(
+                'request' => $argv,
+                'success' => true
+            ));
+        }
+        else {
+            Response::json(array(
+                'error' => true,
+                'message' => 'Method is not allowed'
+            ), 405);
+        }
+    }
 }

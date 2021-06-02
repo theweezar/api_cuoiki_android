@@ -16,5 +16,4 @@ class Request {
         }
         return [$argv];
     }
-
 }
