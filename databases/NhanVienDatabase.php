@@ -12,8 +12,12 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
         mysqli_query(
             $this->conn,
             "INSERT INTO nhanvien (MANV, HOTEN, NGAYSINH, MAPB, EMAIL) 
-            VALUES('".$params['manv']."','".$params['hoten']."','".$params['ngaysinh']."'
-            ,'".$params['mapb']."', '".$params['email']."')"
+            VALUES(
+                '".$params['manv']."',
+                '".$params['hoten']."',
+                '".$params['ngaysinh']."',
+                '".$params['mapb']."', 
+                '".$params['email']."')"
         );
         mysqli_commit($this->conn);
     }
@@ -21,9 +25,12 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     public function update($params) {
         mysqli_query(
             $this->conn,
-            "UPDATE nhanvien SET HOTEN='".$params['hoten']."'
-            , NGAYSINH='".$params['ngaysinh']."', MAPB='".$params['mapb']."', 
-            EMAIL='".$params['email']."' WHERE MANV=".$params['manv']." "
+            "UPDATE nhanvien SET 
+            HOTEN='".$params['hoten']."',
+            NGAYSINH='".$params['ngaysinh']."', 
+            MAPB='".$params['mapb']."', 
+            EMAIL='".$params['email']."' 
+            WHERE MANV='".$params['manv']."' "
         );
         mysqli_commit($this->conn);
     }
@@ -31,7 +38,7 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     public function remove($params) {
         mysqli_query(
             $this->conn,
-            "DELETE FROM nhanvien WHERE MANV=".$params['manv'].""
+            "DELETE FROM nhanvien WHERE MANV='".$params['manv']."'"
         );
         mysqli_commit($this->conn);
     }
@@ -47,6 +54,11 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
 
     public function isExistID($manv) {
         $result = mysqli_query($this->conn,"SELECT * FROM nhanvien WHERE MANV='".$manv."'");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
+
+    public function isExistEmail($email) {
+        $result = mysqli_query($this->conn,"SELECT * FROM nhanvien WHERE EMAIL='".$email."'");
         return mysqli_num_rows($result) == 0 ? false : true;
     }
 }

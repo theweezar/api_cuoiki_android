@@ -41,7 +41,7 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
     public function remove($params) {
         mysqli_query(
             $this->conn,
-            "DELETE FROM vanphongpham WHERE MAVPP=".$params['mavpp'].""
+            "DELETE FROM vanphongpham WHERE MAVPP='".$params['mavpp']."'"
         );
         mysqli_commit($this->conn);
     }
@@ -58,6 +58,12 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
     public function isExistID($mavpp) {
         $result = mysqli_query($this->conn,"SELECT * FROM vanphongpham WHERE 
         MAVPP= '".$mavpp."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
+
+    public function isExistName($tenvpp) {
+        $result = mysqli_query($this->conn,"SELECT * FROM vanphongpham WHERE 
+        TENVPP= '".$tenvpp."' ");
         return mysqli_num_rows($result) == 0 ? false : true;
     }
 }

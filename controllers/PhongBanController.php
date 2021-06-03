@@ -23,11 +23,25 @@ class PhongBanController {
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            $phongbanDb->insert($argv['params']);
-            Response::json(array(
-                'request' => $argv,
-                'success' => true
-            ));
+            if ($phongbanDb->isExistID($argv['params']['mapb'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'MAPB is existed'
+                ));
+            }
+            else if ($phongbanDb->isExistName($argv['params']['tenpb'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'TENVPP is exist'
+                ));
+            }
+            else {
+                $phongbanDb->insert($argv['params']);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
+            }
         }
         else {
             Response::render('insert.html');
@@ -38,11 +52,19 @@ class PhongBanController {
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            $phongbanDb->update($argv['params']);
-            Response::json(array(
-                'request' => $argv,
-                'success' => true
-            ));
+            if ($phongbanDb->isExistName($argv['params']['tenpb'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'TENVPP is exist'
+                ));
+            }
+            else {
+                $phongbanDb->update($argv['params']);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
+            }
         }
         else {
             Response::json(array(

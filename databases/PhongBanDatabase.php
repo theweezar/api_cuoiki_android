@@ -19,7 +19,7 @@ class PhongBanDatabase extends Database implements DatabaseInterface {
     public function update($params){
         mysqli_query(
             $this->conn,
-            "UPDATE phongban SET TENPB='".$params['tenpb']."' WHERE MAPB=".$params['mapb']." "
+            "UPDATE phongban SET TENPB='".$params['tenpb']."' WHERE MAPB='".$params['mapb']."' "
         );
         mysqli_commit($this->conn);
     }
@@ -27,7 +27,7 @@ class PhongBanDatabase extends Database implements DatabaseInterface {
     public function remove($params){
         mysqli_query(
             $this->conn,
-            "DELETE FROM phongban WHERE MAPB=".$params['mapb'].""
+            "DELETE FROM phongban WHERE MAPB='".$params['mapb']."'"
         );
         mysqli_commit($this->conn);
     }
@@ -39,5 +39,18 @@ class PhongBanDatabase extends Database implements DatabaseInterface {
             array_push($data, mysqli_fetch_assoc($result));
         }
         return $data;
+    }
+    
+    public function isExistID($mapb) {
+        $result = mysqli_query($this->conn,"SELECT * FROM phongban WHERE 
+        MAPB= '".$mapb."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
+
+    
+    public function isExistName($tenpb) {
+        $result = mysqli_query($this->conn,"SELECT * FROM phongban WHERE 
+        TENPB= '".$tenpb."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
     }
 }

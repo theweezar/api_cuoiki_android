@@ -13,17 +13,23 @@ class VanPhongPhamController {
         if ($argv['request_method'] === 'POST') {
             $vppDb = new VanPhongPhamDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            if (!$vppDb->isExistID($argv['params']['mavpp'])) {
+            if ($vppDb->isExistID($argv['params']['mavpp'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'MAVPP is existed'
+                ));
+            }
+            else if ($vppDb->isExistName($argv['params']['tenvpp'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'TENVPP is existed'
+                ));
+            }
+            else {
                 $vppDb->insert($argv['params']);
                 Response::json(array(
                     'request' => $argv,
                     'success' => true
-                ));
-            }
-            else {
-                Response::json(array(
-                    'error' => true,
-                    'message' => 'MAVPP is exist'
                 ));
             }
         }
@@ -36,17 +42,17 @@ class VanPhongPhamController {
         if ($argv['request_method'] === 'POST') {
             $vppDb = new VanPhongPhamDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            if (!$vppDb->isExistID($argv['params']['mavpp'])) {
+            if ($vppDb->isExistName($argv['params']['tenvpp'])) {
+                Response::json(array(
+                    'error' => true,
+                    'message' => 'TENVPP is existed'
+                ));
+            }
+            else {
                 $vppDb->update($argv['params']);
                 Response::json(array(
                     'request' => $argv,
                     'success' => true
-                ));
-            }
-            else {
-                Response::json(array(
-                    'error' => true,
-                    'message' => 'MAVPP is exist'
                 ));
             }
         }
