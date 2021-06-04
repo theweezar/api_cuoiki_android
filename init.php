@@ -19,6 +19,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/../databases/PhieuCungCapDatabase.php');
 
 // helpers
 require($_SERVER['DOCUMENT_ROOT'].'/../helpers/Tools.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../helpers/imageHelper.php');
 
 // Server
 require($_SERVER['DOCUMENT_ROOT'].'/../server/Request.php');

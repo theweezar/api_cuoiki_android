@@ -13,6 +13,7 @@ class VanPhongPhamController {
         if ($argv['request_method'] === 'POST') {
             $vppDb = new VanPhongPhamDatabase();
             $argv['params'] = checkInputParams($argv['params']);
+
             if ($vppDb->isExistID($argv['params']['mavpp'])) {
                 Response::json(array(
                     'error' => true,
@@ -26,10 +27,19 @@ class VanPhongPhamController {
                 ));
             }
             else {
+                $upload = null;
+                if (isset($argv['files']['hinh'])) {
+                    $upload = saveImageFile($argv['files']['hinh']);
+                }
+                if (isset($upload) && $upload['success']) {
+                    $argv['params']['hinh'] = $upload['fileName'];
+                }
+                else $argv['params']['hinh'] = null;
                 $vppDb->insert($argv['params']);
                 Response::json(array(
                     'request' => $argv,
-                    'success' => true
+                    'success' => true,
+                    'uploadMessage' => isset($upload) ? $upload['message'] : null
                 ));
             }
         }

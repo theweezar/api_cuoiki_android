@@ -90,4 +90,10 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         }
         return $data;
     }
+
+    public function isExistID($sophieu) {
+        $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap WHERE 
+        SOPHIEU= '".$sophieu."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
 }
