@@ -47,7 +47,11 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $result = mysqli_query($this->conn,"SELECT * FROM vanphongpham");
+        $sql = isset($params['mavpp']) ? 
+            "SELECT * FROM vanphongpham WHERE MAVPP='".$params['mavpp']."'" : 
+            "SELECT * FROM vanphongpham" ;
+        
+        $result = mysqli_query($this->conn, $sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));

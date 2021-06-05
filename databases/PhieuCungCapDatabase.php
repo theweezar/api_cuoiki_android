@@ -11,10 +11,11 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     public function insert($params) {
         mysqli_query(
             $this->conn,
-            "INSERT INTO phieucungcap (SOPHIEU, TRANGTHAI) 
+            "INSERT INTO phieucungcap (SOPHIEU, TRANGTHAI, MANCC) 
             VALUES(
                 '".$params['sophieu']."',
-                '".$params['trangthai']."')"
+                '".$params['trangthai']."',
+                '".$params['mancc']."')"
         );
         mysqli_commit($this->conn);
     }
@@ -62,11 +63,11 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     public function updateDetail($params) {
         mysqli_query(
             $this->conn,
-            "UPDATE chitietphieucc SET 
-            MANVPP='".$params['mavpp']."',
+            "UPDATE chitietphieucc SET
             SOLUONG='".$params['soluong']."',
             THANHTIEN='".$params['thanhtien']."',
-            WHERE SOPHIEU=".$params['sophieu']." "
+            WHERE SOPHIEU='".$params['sophieu']."' 
+            AND MAVPP= '".$params['mavpp']."'"
         );
         mysqli_commit($this->conn);
     }
@@ -74,9 +75,9 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     public function removeDetail($params) {
         mysqli_query(
             $this->conn,
-            "DELETE FROM chitietphieucc WHERE 
-            SOPHIEU='".$params['sophieu']."' AND 
-            MAVPP='".$params['mavpp']."' "
+            "DELETE FROM chitietphieucc 
+            WHERE SOPHIEU='".$params['sophieu']."' 
+            AND MAVPP='".$params['mavpp']."' "
         );
         mysqli_commit($this->conn);
     }
@@ -94,6 +95,12 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     public function isExistID($sophieu) {
         $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap WHERE 
         SOPHIEU= '".$sophieu."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
+    }
+
+    public function isOpening() {
+        $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap WHERE 
+        TRANGTHAI='OPENING' ");
         return mysqli_num_rows($result) == 0 ? false : true;
     }
 }

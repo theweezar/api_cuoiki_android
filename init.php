@@ -15,6 +15,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/../databases/DatabaseInterface.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/PhongBanDatabase.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/NhanVienDatabase.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/VanPhongPhamDatabase.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../databases/CapPhatDatabase.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../databases/PhieuCungCapDatabase.php');
 
 // helpers
