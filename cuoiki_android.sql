@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2021 at 06:53 PM
+-- Generation Time: Jun 05, 2021 at 07:06 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -28,13 +28,27 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `capphat` (
-  `ID` int(11) NOT NULL,
-  `SOPHIEU` varchar(1024) NOT NULL,
+  `SOPHIEU` varchar(100) NOT NULL,
   `NGAYCAP` date NOT NULL,
   `MAVPP` varchar(100) NOT NULL,
   `MANV` varchar(100) NOT NULL,
   `SOLUONG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `capphat`
+--
+
+INSERT INTO `capphat` (`SOPHIEU`, `NGAYCAP`, `MAVPP`, `MANV`, `SOLUONG`) VALUES
+('PHIEU1', '2018-08-25', 'VPP01', 'NV01', 10),
+('PHIEU2', '2018-08-25', 'VPP02', 'NV02', 15),
+('PHIEU3', '2018-08-25', 'VPP01', 'NV01', 24),
+('PHIEU4', '2019-02-24', 'VPP03', 'NV03', 4),
+('PHIEU5', '2018-10-30', 'VPP05', 'NV05', 7),
+('PHIEU6', '2020-05-07', 'VPP01', 'NV03', 16),
+('PHIEU7', '2020-05-07', 'VPP02', 'NV01', 15),
+('PHIEU8', '2020-02-07', 'VPP06', 'NV04', 16),
+('PHIEU9', '2018-02-09', 'VPP01', 'NV05', 14);
 
 -- --------------------------------------------------------
 
@@ -90,7 +104,7 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
-('NV01', 'NGUYỄN THÀNH NAM\r\n', '1982-08-01', 'PB01', NULL),
+('NV01', 'NGUYỄN THÀNH NAM', '1982-08-01', 'PB01', NULL),
 ('NV02', 'VŨ THỊ THẮM', '1992-08-12', 'PB01', NULL),
 ('NV03', 'HỒ THANH TÂM', '1990-06-05', 'PB02', NULL),
 ('NV04', 'NGÔ ĐỨC TRUNG', '1990-08-04', 'PB02', NULL),
@@ -107,8 +121,7 @@ INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
 --
 
 CREATE TABLE `phieucungcap` (
-  `ID` int(11) NOT NULL,
-  `SOPHIEU` varchar(1024) NOT NULL,
+  `SOPHIEU` varchar(100) NOT NULL,
   `TRANGTHAI` enum('OPEN','DELIVERIED','CANCELLED') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -149,7 +162,7 @@ CREATE TABLE `vanphongpham` (
   `TENVPP` varchar(1024) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `DVT` varchar(1024) NOT NULL,
   `GIANHAP` int(11) NOT NULL,
-  `HINH` mediumblob DEFAULT NULL,
+  `HINH` varchar(1024) DEFAULT NULL,
   `SOLUONG` int(11) NOT NULL,
   `MANCC` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -164,7 +177,8 @@ INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUON
 ('VPP03', 'BÚT BI XANH', 'HỘP', 50000, NULL, 5, 'VPPSH'),
 ('VPP04', 'BÚT BI ĐỎ', 'HỘP', 50000, NULL, 5, 'VPPSH'),
 ('VPP05', 'ĐẦU BẤM', 'CÁI', 18000, NULL, 5, 'VPPVNC'),
-('VPP06', 'KEO DÁN HAI MẶT', 'CÁI', 11000, NULL, 7, 'VPPVNC');
+('VPP06', 'KEO DÁN HAI MẶT', 'CÁI', 11000, NULL, 7, 'VPPVNC'),
+('VPP07', 'BAN PHIM', 'CAI', 10, 'pmfbdjvhoa.jpg', 1, 'VPPSH');
 
 --
 -- Indexes for dumped tables
@@ -174,8 +188,7 @@ INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUON
 -- Indexes for table `capphat`
 --
 ALTER TABLE `capphat`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `SOPHIEU` (`SOPHIEU`) USING HASH;
+  ADD PRIMARY KEY (`SOPHIEU`);
 
 --
 -- Indexes for table `chitietphieucc`
@@ -199,8 +212,7 @@ ALTER TABLE `nhanvien`
 -- Indexes for table `phieucungcap`
 --
 ALTER TABLE `phieucungcap`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `SOPHIEU` (`SOPHIEU`) USING HASH;
+  ADD PRIMARY KEY (`SOPHIEU`);
 
 --
 -- Indexes for table `phongban`
@@ -219,21 +231,9 @@ ALTER TABLE `vanphongpham`
 --
 
 --
--- AUTO_INCREMENT for table `capphat`
---
-ALTER TABLE `capphat`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `chitietphieucc`
 --
 ALTER TABLE `chitietphieucc`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `phieucungcap`
---
-ALTER TABLE `phieucungcap`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
