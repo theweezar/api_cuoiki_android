@@ -12,6 +12,11 @@ import java.util.List;
 
 public class JSONHelper {
 
+    /**
+     * Kiểm tra xem response có lỗi hay không
+     * @param json
+     * @return
+     */
     public String verifyJSON(String json) {
         try {
             JSONObject jsonObj = new JSONObject(json);
@@ -25,6 +30,13 @@ public class JSONHelper {
         return "PASS";
     }
 
+    /**
+     * parse cái string json lại theo các entities
+     * @param json
+     * @param objectName
+     * @return Object entities
+     * @throws JSONException
+     */
     public List<Object> parseJSON(String json, String objectName) throws JSONException {
         JSONObject jsonObj = new JSONObject(json);
         JSONArray viewData = jsonObj.getJSONArray("viewData");
@@ -91,6 +103,11 @@ public class JSONHelper {
         return entitiesList;
     }
 
+    /**
+     * 
+     * @param json
+     * @return
+     */
     public List<String> parseJSON(String json) {
         return new ArrayList<>();
     }
