@@ -1,4 +1,4 @@
-package com.example.resp;
+package com.example.resp.requests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.resp.R;
+import com.example.resp.helpers.RequestHelper;
+import com.example.resp.WebService;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;

@@ -1,4 +1,4 @@
-package com.example.resp;
+package com.example.resp.helpers;
 
 import android.os.AsyncTask;
 
@@ -26,7 +26,7 @@ public class RequestHelper extends AsyncTask<String, Integer, String> {
     private RequestBody formBody;
 
     /**
-     * Pass an external RequestBody
+     * Truyền formBody từ bên ngoài vào trong class
      * @param formBody An external RequestBody
      */
     public void setRequestBody(RequestBody formBody) {
@@ -34,13 +34,13 @@ public class RequestHelper extends AsyncTask<String, Integer, String> {
     }
 
     /**
-     * This function will generate a FormBody inside the class
+     * Generate formBody theo HashMap được truyền từ bên ngoài
      * @param hashMap is a form input map which is sent to web service
      */
     public void buildRequestBody(HashMap<String, String> hashMap) {
         FormBody.Builder builder = new FormBody.Builder();
         for(String key: hashMap.keySet()) {
-            builder.add(key, hashMap.get(key));
+            builder.add(key, Objects.requireNonNull(hashMap.get(key)));
         }
         this.formBody = builder.build();
     }
@@ -56,7 +56,7 @@ public class RequestHelper extends AsyncTask<String, Integer, String> {
     /**
      * Phương thức doInBackground sẽ được thực hiện khi đang thực hiện httprequest, giống kiểu chạy ngầm
      * phương thức doInBackground sẽ có kiểu dữ liệu bằng với key thứ 3 ở trên
-     * @param urls
+     * @param urls array biến để truyền vào thực hiện request
      * @return A JSON string
      */
     @Override
@@ -76,6 +76,7 @@ public class RequestHelper extends AsyncTask<String, Integer, String> {
                     .build();
         }
         try  {
+            assert request != null;
             Response response = client.newCall(request).execute();
             return Objects.requireNonNull(response.body()).string();
         }

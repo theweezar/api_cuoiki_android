@@ -1,4 +1,9 @@
-package com.example.resp;
+package com.example.resp.helpers;
+
+import com.example.resp.entites.CapPhat;
+import com.example.resp.entites.NhanVien;
+import com.example.resp.entites.PhongBan;
+import com.example.resp.entites.VanPhongPham;
 
 import org.json.*;
 
@@ -6,6 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONHelper {
+
+    public String verifyJSON(String json) {
+        try {
+            JSONObject jsonObj = new JSONObject(json);
+            if (jsonObj.has("error")) {
+                return jsonObj.getString("message");
+            }
+        }
+        catch (JSONException error) {
+            return error.getMessage();
+        }
+        return "PASS";
+    }
 
     public List<Object> parseJSON(String json, String objectName) throws JSONException {
         JSONObject jsonObj = new JSONObject(json);
@@ -73,11 +91,14 @@ public class JSONHelper {
         return entitiesList;
     }
 
+    public List<String> parseJSON(String json) {
+        return new ArrayList<>();
+    }
+
     public void printPhongBanEntity(List<Object> phongBanList) {
         for(Object obj: phongBanList) {
             PhongBan pb = (PhongBan)obj;
             System.out.println(pb.getTenpb());
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package entities;
+package com.example.resp.entites;
 
 public class NhanVien {
 
