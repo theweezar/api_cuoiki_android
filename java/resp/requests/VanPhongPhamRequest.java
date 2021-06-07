@@ -52,7 +52,7 @@ public class VanPhongPhamRequest {
                 .addFormDataPart("tenvpp", vanPhongPham.getTenVpp())
                 .addFormDataPart("dvt", vanPhongPham.getDvt())
                 .addFormDataPart("gianhap", vanPhongPham.getGiaNhap())
-                .addFormDataPart("soluong", String.format("%d", vanPhongPham.getSoLuong()))
+                .addFormDataPart("soluong", vanPhongPham.getSoLuong())
                 .addFormDataPart("mancc", vanPhongPham.getMaNcc());
 
         // Tạo input:file cho file image theo đúng media type
