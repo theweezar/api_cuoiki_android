@@ -37,19 +37,17 @@ class NhanVienController {
         if ($argv['request_method'] === 'POST') {
             $nhanvienDb = new NhanVienDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            if (!$nhanvienDb->isExistID($argv['params']['manv'])){
-                $nhanvienDb->update($argv['params']);
-                Response::json(array(
-                    'request' => $argv,
-                    'success' => true
-                ));
-            }
-            else {
-                Response::json(array(
-                    'success' => false,
-                    'message' => 'MANV is exist'
-                ));
-            }
+            $nhanvienDb->update($argv['params']);
+            Response::json(array(
+                'request' => $argv,
+                'success' => true
+            ));
+        }
+        else {
+            Response::json(array(
+                'success' => false,
+                'message' => 'Method is not allowed'
+            ), 405);
         }
     }
 
