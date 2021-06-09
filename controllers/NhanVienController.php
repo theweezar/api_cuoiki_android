@@ -55,7 +55,7 @@ class NhanVienController {
         if ($argv['request_method'] === 'POST') {
             $nhanvienDb = new NhanVienDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            $nhanvienDb->remove($argv['params']['manv']);
+            $nhanvienDb->remove($argv['params']);
             Response::json(array(
                 'request' => $argv,
                 'success' => true

@@ -53,19 +53,11 @@ class PhongBanController {
         if ($argv['request_method'] === 'POST'){
             $phongbanDb = new PhongBanDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            if ($phongbanDb->isExistName($argv['params']['tenpb'])) {
-                Response::json(array(
-                    'success' => false,
-                    'message' => 'TENVPP is exist'
-                ));
-            }
-            else {
-                $phongbanDb->update($argv['params']);
-                Response::json(array(
-                    'request' => $argv,
-                    'success' => true
-                ));
-            }
+            $phongbanDb->update($argv['params']);
+            Response::json(array(
+                'request' => $argv,
+                'success' => true
+            ));
         }
         else {
             Response::json(array(

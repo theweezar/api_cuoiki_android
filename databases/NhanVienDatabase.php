@@ -44,7 +44,7 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     public function select($params) {
         $sql = isset($params['manv']) ?
         "SELECT * FROM nhanvien WHERE MANV='".$params['manv']."' ":
-        "SELECT * FROM nhanvien ORDER BY MANV ASC";
+        "SELECT * FROM nhanvien";
         $result = mysqli_query($this->conn,"SELECT * FROM nhanvien");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
