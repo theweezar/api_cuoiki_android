@@ -11,13 +11,12 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     public function insert($params) {
         mysqli_query(
             $this->conn,
-            "INSERT INTO nhanvien (MANV, HOTEN, NGAYSINH, MAPB, EMAIL) 
+            "INSERT INTO nhanvien (MANV, HOTEN, NGAYSINH, MAPB) 
             VALUES(
                 '".$params['manv']."',
                 '".$params['hoten']."',
                 '".$params['ngaysinh']."',
-                '".$params['mapb']."', 
-                '".$params['email']."')"
+                '".$params['mapb']."')"
         );
         mysqli_commit($this->conn);
     }
@@ -28,8 +27,7 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
             "UPDATE nhanvien SET 
             HOTEN='".$params['hoten']."',
             NGAYSINH='".$params['ngaysinh']."', 
-            MAPB='".$params['mapb']."', 
-            EMAIL='".$params['email']."' 
+            MAPB='".$params['mapb']."' 
             WHERE MANV='".$params['manv']."' "
         );
         mysqli_commit($this->conn);
@@ -44,6 +42,9 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
+        $sql = isset($params['manv']) ?
+        "SELECT * FROM nhanvien WHERE MANV='".$params['manv']."' ":
+        "SELECT * FROM nhanvien ORDER BY MANV ASC";
         $result = mysqli_query($this->conn,"SELECT * FROM nhanvien");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
@@ -54,11 +55,6 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
 
     public function isExistID($manv) {
         $result = mysqli_query($this->conn,"SELECT * FROM nhanvien WHERE MANV='".$manv."'");
-        return mysqli_num_rows($result) == 0 ? false : true;
-    }
-
-    public function isExistEmail($email) {
-        $result = mysqli_query($this->conn,"SELECT * FROM nhanvien WHERE EMAIL='".$email."'");
         return mysqli_num_rows($result) == 0 ? false : true;
     }
 }

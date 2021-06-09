@@ -5,7 +5,7 @@ class NhanVienController {
         $nhanvienDb = new NhanVienDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $nhanvienDb->select($argv),
+            'viewData' => $nhanvienDb->select($argv['params']),
             'success' => true
         ));
     }

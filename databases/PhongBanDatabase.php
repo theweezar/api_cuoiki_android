@@ -35,7 +35,7 @@ class PhongBanDatabase extends Database implements DatabaseInterface {
     public function select($params) {
         $sql = isset($params['mapb']) ?
         "SELECT * FROM phongban WHERE MAPB='".$params['mapb']."' ":
-        "SELECT * FROM phongban";
+        "SELECT * FROM phongban ORDER BY MAPB DESC";
         $result = mysqli_query($this->conn,$sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
