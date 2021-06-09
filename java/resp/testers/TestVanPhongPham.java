@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -123,11 +126,35 @@ public class TestVanPhongPham extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == IMAGE_FOLDER && resultCode == RESULT_OK && data != null){
             hinh_input.setImageURI(data.getData());
-            file_hinh = new File(data.getData().getPath());
-            Toast.makeText(TestVanPhongPham.this,
-                    String.format("Thêm hình thành công ở %s", file_hinh.getAbsolutePath()),
-                    Toast.LENGTH_SHORT).show();
+            file_hinh = new File(getPath(data.getData()));
+            if (file_hinh.exists()) {
+                Toast.makeText(TestVanPhongPham.this,
+                        String.format("Thêm hình thành công ở %s", file_hinh.getAbsolutePath()),
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(TestVanPhongPham.this,
+                        "Tạo Object File hình thất bại",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 }
