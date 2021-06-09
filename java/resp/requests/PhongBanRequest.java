@@ -10,13 +10,8 @@ import java.util.concurrent.ExecutionException;
 
 public class PhongBanRequest {
 
-    private final RequestHelper requestHelper;
-
-    public PhongBanRequest() {
-        requestHelper = new RequestHelper();
-    }
-
     public String doGet(String method) {
+        RequestHelper requestHelper = new RequestHelper();
         String[] request = {"get", String.format("http://%s/PhongBanController-%s", WebService.host(), method)};
         String response = "";
         try {
@@ -32,6 +27,7 @@ public class PhongBanRequest {
     }
 
     public String doPost(PhongBan phongBan, String method) {
+        RequestHelper requestHelper = new RequestHelper();
         // Tạo HashMap để tạo requestBody
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("mapb", phongBan.getMapb());

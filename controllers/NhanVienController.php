@@ -5,7 +5,8 @@ class NhanVienController {
         $nhanvienDb = new NhanVienDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $nhanvienDb->select($argv)
+            'viewData' => $nhanvienDb->select($argv),
+            'success' => true
         ));
     }
 
@@ -22,7 +23,7 @@ class NhanVienController {
             }
             else {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'MANV is exist'
                 ));
             }
@@ -45,7 +46,7 @@ class NhanVienController {
             }
             else {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'MANV is exist'
                 ));
             }

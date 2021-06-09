@@ -10,13 +10,8 @@ import java.util.concurrent.ExecutionException;
 
 public class PhieuCungCapRequest {
 
-    private final RequestHelper requestHelper;
-
-    public PhieuCungCapRequest() {
-        requestHelper = new RequestHelper();
-    }
-
     public String doGet(String method) {
+        RequestHelper requestHelper = new RequestHelper();
         String[] request = {"get", String.format("http://%s/PhieuCungCapController-%s", WebService.host(), method)};
         String response = "";
         try {
@@ -34,6 +29,7 @@ public class PhieuCungCapRequest {
     public String doPost(PhieuCungCap phieuCungCap,
                          ChiTietCungCap chiTietCungCap,
                          String method) {
+        RequestHelper requestHelper = new RequestHelper();
         // Tạo HashMap để tạo requestBody
         HashMap<String, String> hashMap = new HashMap<>();
 

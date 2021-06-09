@@ -22,8 +22,8 @@ public class JSONHelper {
     public String verifyJSON(String json) {
         try {
             JSONObject jsonObj = new JSONObject(json);
-            if (jsonObj.has("error")) {
-                return jsonObj.get("message").toString();
+            if (!jsonObj.getBoolean("success")) {
+                return jsonObj.getString("message");
             }
         }
         catch (JSONException error) {

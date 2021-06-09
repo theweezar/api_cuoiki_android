@@ -10,13 +10,8 @@ import java.util.concurrent.ExecutionException;
 
 public class NhanVienRequest {
 
-    private final RequestHelper requestHelper;
-
-    public NhanVienRequest() {
-        requestHelper = new RequestHelper();
-    }
-
     public String doGet(String method) {
+        RequestHelper requestHelper = new RequestHelper();
         String[] request = {"get", String.format("http://%s/NhanVienController-%s", WebService.host(), method)};
         String response = "";
         try {
@@ -32,6 +27,7 @@ public class NhanVienRequest {
     }
 
     public String doPost(NhanVien nhanVien, String method) {
+        RequestHelper requestHelper = new RequestHelper();
         // Tạo HashMap để tạo requestBody
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("manv", nhanVien.getMaNv());

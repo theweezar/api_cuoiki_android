@@ -5,7 +5,8 @@ class VanPhongPhamController {
         $vppDb = new VanPhongPhamDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $vppDb->select($argv)
+            'viewData' => $vppDb->select($argv['params']),
+            'success' => true
         ));
     }
 
@@ -16,13 +17,13 @@ class VanPhongPhamController {
 
             if ($vppDb->isExistID($argv['params']['mavpp'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'MAVPP is existed'
                 ));
             }
             else if ($vppDb->isExistName($argv['params']['tenvpp'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'TENVPP is existed'
                 ));
             }
@@ -54,7 +55,7 @@ class VanPhongPhamController {
             $argv['params'] = checkInputParams($argv['params']);
             if ($vppDb->isExistName($argv['params']['tenvpp'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'TENVPP is existed'
                 ));
             }
@@ -68,7 +69,7 @@ class VanPhongPhamController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -86,7 +87,7 @@ class VanPhongPhamController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }

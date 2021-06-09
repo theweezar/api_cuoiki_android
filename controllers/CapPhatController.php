@@ -5,7 +5,8 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->select($argv)
+            'viewData' => $capphatDb->select($argv),
+            'success' => true
         ));
     }
 
@@ -13,7 +14,8 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->thongKeCau2a($argv)
+            'viewData' => $capphatDb->thongKeCau2a($argv),
+            'success' => true
         ));
     }
     
@@ -21,7 +23,8 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->thongKeCau2b($argv)
+            'viewData' => $capphatDb->thongKeCau2b($argv),
+            'success' => true
         ));
     }
 
@@ -29,7 +32,8 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->thongKeCau2c($argv)
+            'viewData' => $capphatDb->thongKeCau2c($argv),
+            'success' => true
         ));
     }
 
@@ -37,7 +41,8 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->thongKeCau2d($argv)
+            'viewData' => $capphatDb->thongKeCau2d($argv),
+            'success' => true
         ));
     }
 }

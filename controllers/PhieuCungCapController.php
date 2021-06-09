@@ -15,13 +15,13 @@ class PhieuCungCapController {
             $argv['params'] = checkInputParams($argv['params']);
             if ($phieuccDb->isOpening()) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'THERE IS ONE CART OPENING'
                 ));
             }
             else if ($phieuccDb->isExistID($argv['params']['sophieu'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'SOPHIEU is existed'
                 ));
             }
@@ -58,7 +58,7 @@ class PhieuCungCapController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -72,7 +72,7 @@ class PhieuCungCapController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -98,7 +98,7 @@ class PhieuCungCapController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -116,7 +116,7 @@ class PhieuCungCapController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -134,7 +134,7 @@ class PhieuCungCapController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }

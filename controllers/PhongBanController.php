@@ -15,7 +15,8 @@ class PhongBanController {
         $phongbanDb = new PhongBanDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $phongbanDb->select($argv)
+            'viewData' => $phongbanDb->select($argv['params']),
+            'success' => true
         ));
     }
 
@@ -25,13 +26,13 @@ class PhongBanController {
             $argv['params'] = checkInputParams($argv['params']);
             if ($phongbanDb->isExistID($argv['params']['mapb'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'MAPB is existed'
                 ));
             }
             else if ($phongbanDb->isExistName($argv['params']['tenpb'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'TENVPP is exist'
                 ));
             }
@@ -54,7 +55,7 @@ class PhongBanController {
             $argv['params'] = checkInputParams($argv['params']);
             if ($phongbanDb->isExistName($argv['params']['tenpb'])) {
                 Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'message' => 'TENVPP is exist'
                 ));
             }
@@ -68,7 +69,7 @@ class PhongBanController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
@@ -86,7 +87,7 @@ class PhongBanController {
         }
         else {
             Response::json(array(
-                'error' => true,
+                'success' => false,
                 'message' => 'Method is not allowed'
             ), 405);
         }
