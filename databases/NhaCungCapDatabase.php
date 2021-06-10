@@ -21,7 +21,10 @@ class NhaCungCapDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap");
+        $sql = isset($params['mancc']) ?
+        "SELECT * FROM nhacungcap WHERE MANCC='".$params['mancc']."'" :
+        "SELECT * FROM nhacungcap";
+        $result = mysqli_query($this->conn,"SELECT * FROM nhacungcap");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));

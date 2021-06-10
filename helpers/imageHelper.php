@@ -29,6 +29,8 @@ function saveImageFile($image) {
     );
 }
 
-function removeImageFile($image) {
-
+function removeImageFile($imageFileName) {
+    $targetDir = realpath(dirname(getcwd()))."/storage/";
+    $targetFile = $targetDir.$imageFileName;
+    unlink($targetFile);
 }

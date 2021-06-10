@@ -60,6 +60,16 @@ class VanPhongPhamController {
                 ));
             }
             else {
+                $upload = null;
+                if (isset($argv['files']['hinh'])) {
+                    $oldHinh = $vppDb->select($argv['params'])[0]['HINH'];
+                    removeImageFile($oldHinh);
+                    $upload = saveImageFile($argv['files']['hinh']);
+                }
+                if (isset($upload) && $upload['success']) {
+                    $argv['params']['hinh'] = $upload['fileName'];
+                }
+                else $argv['params']['hinh'] = null;
                 $vppDb->update($argv['params']);
                 Response::json(array(
                     'request' => $argv,
