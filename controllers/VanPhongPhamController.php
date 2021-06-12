@@ -63,8 +63,10 @@ class VanPhongPhamController {
             else {
                 $upload = null;
                 if (isset($argv['files']['hinh'])) {
-                    $oldHinh = $vppDb->select($argv['params'])[0]['HINH'];
-                    removeImageFile($oldHinh);
+                    $oldHinh = trim($vppDb->select($argv['params'])[0]['HINH']);
+                    if (!strcmp($oldHinh, 'NULL') && count($oldHinh) !== 0) {
+                        removeImageFile($oldHinh);
+                    }
                     $upload = saveImageFile($argv['files']['hinh']);
                 }
                 if (isset($upload) && $upload['success']) {
@@ -74,7 +76,9 @@ class VanPhongPhamController {
                 $vppDb->update($argv['params']);
                 Response::json(array(
                     'request' => $argv,
-                    'success' => true
+                    'success' => true,
+                    'uploadMessage' => isset($upload) ? $upload['message'] : null,
+                    'fileName' => $argv['params']['hinh']
                 ));
             }
         }
