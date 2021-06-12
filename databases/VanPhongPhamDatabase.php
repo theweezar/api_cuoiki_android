@@ -32,8 +32,8 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
             GIANHAP='".$params['gianhap']."',
             HINH='".$params['hinh']."',
             SOLUONG='".$params['soluong']."',
-            MANCC='".$params['mancc']."', 
-            WHERE MAVPP=".$params['mavpp']." "
+            MANCC='".$params['mancc']."' 
+            WHERE MAVPP='".$params['mavpp']."' "
         );
         mysqli_commit($this->conn);
     }

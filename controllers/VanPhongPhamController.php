@@ -54,33 +54,26 @@ class VanPhongPhamController {
         if ($argv['request_method'] === 'POST') {
             $vppDb = new VanPhongPhamDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            if ($vppDb->isExistName($argv['params']['tenvpp'])) {
-                Response::json(array(
-                    'success' => false,
-                    'message' => 'TENVPP is existed'
-                ));
-            }
-            else {
-                $upload = null;
-                if (isset($argv['files']['hinh'])) {
-                    $oldHinh = trim($vppDb->select($argv['params'])[0]['HINH']);
-                    if (!strcmp($oldHinh, 'NULL') && count($oldHinh) !== 0) {
-                        removeImageFile($oldHinh);
-                    }
-                    $upload = saveImageFile($argv['files']['hinh']);
-                }
-                if (isset($upload) && $upload['success']) {
-                    $argv['params']['hinh'] = $upload['fileName'];
-                }
-                else $argv['params']['hinh'] = null;
-                $vppDb->update($argv['params']);
-                Response::json(array(
-                    'request' => $argv,
-                    'success' => true,
-                    'uploadMessage' => isset($upload) ? $upload['message'] : null,
-                    'fileName' => $argv['params']['hinh']
-                ));
-            }
+			$vpp = $vppDb->select($argv['params']);
+			$upload = null;
+			if (isset($argv['files']['hinh'])) {
+				$oldHinh = trim($vppDb->select($argv['params'])[0]['HINH']);
+				if (!strcmp($oldHinh, 'NULL') && strlen($oldHinh) !== 0) {
+					removeImageFile($oldHinh);
+				}
+				$upload = saveImageFile($argv['files']['hinh']);
+			}
+			if (isset($upload) && $upload['success']) {
+				$argv['params']['hinh'] = $upload['fileName'];
+			}
+			else $argv['params']['hinh'] = null;
+			$vppDb->update($argv['params']);
+			Response::json(array(
+				'request' => $argv,
+				'success' => true,
+				'uploadMessage' => isset($upload) ? $upload['message'] : null,
+				'fileName' => $argv['params']['hinh']
+			));
         }
         else {
             Response::json(array(
