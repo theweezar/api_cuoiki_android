@@ -40,7 +40,8 @@ class VanPhongPhamController {
                 Response::json(array(
                     'request' => $argv,
                     'success' => true,
-                    'uploadMessage' => isset($upload) ? $upload['message'] : null
+                    'uploadMessage' => isset($upload) ? $upload['message'] : null,
+                    'fileName' => $argv['params']['hinh']
                 ));
             }
         }

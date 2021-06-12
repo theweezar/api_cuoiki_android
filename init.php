@@ -22,6 +22,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/../databases/NhaCungCapDatabase.php');
 // helpers
 require($_SERVER['DOCUMENT_ROOT'].'/../helpers/Tools.php');
 require($_SERVER['DOCUMENT_ROOT'].'/../helpers/imageHelper.php');
+require($_SERVER['DOCUMENT_ROOT'].'/../helpers/mailHelper.php');
 
 // Server
 require($_SERVER['DOCUMENT_ROOT'].'/../server/Request.php');
