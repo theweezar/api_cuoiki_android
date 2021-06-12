@@ -139,4 +139,9 @@ class PhieuCungCapController {
             ), 405);
         }
     }
+
+    public function report($argv) {
+        
+    }
+
 }

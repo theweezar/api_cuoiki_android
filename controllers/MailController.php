@@ -2,6 +2,13 @@
 
 class MailController {
     public function send($argv) {
-        sendMail();
+        $emailTo = $argv['email'];
+        $nameTo = $argv['name'];
+
+        $content = "";
+        
+
+
+        sendMail($emailTo, $nameTo, $content);
     }
 }
