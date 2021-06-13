@@ -8,8 +8,7 @@ class PhieuCungCapController {
         $phieucc = $phieuccDb->select($argv);
         
         foreach ($phieucc as $key => $phieu) {
-            $chitiet = $phieuccDb->selectDetail($phieu['SOPHIEU']);
-            $phieu['CHITIET'] = $chitiet;
+            $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
             array_push($phieuArray, $phieu);
         }
 

@@ -43,8 +43,15 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
 
     public function select($params) {
         $sql = isset($params['sophieu']) ?
-        "SELECT * FROM phieucungcap WHERE SOPHIEU='".$params['sophieu']."'": 
-        "SELECT * FROM phieucungcap";
+        "
+        SELECT P.SOPHIEU, P.TRANGTHAI, P.MANCC, P.NGAYDAT, P.NGAYGIAO, SUM(CT.THANHTIEN) AS TONGTIEN 
+        FROM phieucungcap P LEFT JOIN chitietphieucc CT ON P.SOPHIEU = CT.SOPHIEU 
+        WHERE P.SOPHIEU = '".$params['sophieu']."'
+        ": 
+        "
+        SELECT P.SOPHIEU, P.TRANGTHAI, P.MANCC, P.NGAYDAT, P.NGAYGIAO, SUM(CT.THANHTIEN) AS TONGTIEN 
+        FROM phieucungcap P LEFT JOIN chitietphieucc CT ON P.SOPHIEU = CT.SOPHIEU
+        ";
         $result = mysqli_query($this->conn, $sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
