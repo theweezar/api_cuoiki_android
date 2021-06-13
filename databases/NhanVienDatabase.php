@@ -42,10 +42,14 @@ class NhanVienDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $sql = isset($params['manv']) ?
-        "SELECT * FROM nhanvien WHERE MANV='".$params['manv']."' ":
-        "SELECT * FROM nhanvien";
-        $result = mysqli_query($this->conn,"SELECT * FROM nhanvien");
+        $sql = "SELECT * FROM nhanvien";
+        if (isset($params['manv'])) {
+            $sql = "SELECT * FROM nhanvien WHERE MANV='".$params['manv']."' ";
+        }
+        if (isset($params['mapb'])) {
+            $sql = "SELECT * FROM nhanvien WHERE MAPB='".$params['mapb']."' ";
+        }
+        $result = mysqli_query($this->conn, $sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
