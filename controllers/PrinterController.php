@@ -1,11 +1,19 @@
 <?php
 
 class PrinterController {
-    public function printDocs() {
+    public function printDocs($argv) {
         // http://localhost/CapPhatController-baocaoQuery?manv=NV01
-        $content = json_decode(file_get_contents("http://localhost/CapPhatController-baocaoQuery?manv=NV01"));
+
+        $content = null;
+
+        if (isset($argv['params']['manv'])) {
+            $content = json_decode(
+                file_get_contents("http://localhost/CapPhatController-baocaoQuery?manv=".$argv['params']['manv'])
+            );
+        }
         
-        if ($content->success) {
+        if (isset($content) 
+            && $content->success) {
             $viewData = $content->viewData;
             ob_start();
             Response::render('table.php', $viewData);

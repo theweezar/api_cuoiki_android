@@ -11,21 +11,24 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     public function insert($params) {
         mysqli_query(
             $this->conn,
-            "INSERT INTO phieucungcap (SOPHIEU, TRANGTHAI, MANCC) 
+            "INSERT INTO phieucungcap (SOPHIEU, TRANGTHAI, MANCC, NGAYDAT, NGAYGIAO) 
             VALUES(
                 '".$params['sophieu']."',
                 '".$params['trangthai']."',
-                '".$params['mancc']."')"
+                '".$params['mancc']."',
+                NOW(),
+                NULL)"
         );
         mysqli_commit($this->conn);
     }
 
     public function update($params) {
         mysqli_query(
-            $this->conn,
+            $this->conn, 
             "UPDATE phieucungcap SET 
-            TRANGTHAI='".$params['trangthai']."'
-            WHERE SOPHIEU=".$params['sophieu']." "
+            ".isset($params['trangthai'])?"TRANGTHAI='".$params['trangthai']."'":""."
+            ".isset($params['ngaygiao'])?"NGAYGIAO=NOW()":""."
+            WHERE SOPHIEU='".$params['sophieu']."' "
         );
         mysqli_commit($this->conn);
     }
@@ -39,7 +42,10 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap");
+        $sql = isset($params['sophieu']) ?
+        "SELECT * FROM phieucungcap WHERE SOPHIEU='".$params['sophieu']."'": 
+        "SELECT * FROM phieucungcap";
+        $result = mysqli_query($this->conn, $sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
@@ -64,8 +70,8 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         mysqli_query(
             $this->conn,
             "UPDATE chitietphieucc SET
-            SOLUONG='".$params['soluong']."',
-            THANHTIEN='".$params['thanhtien']."',
+            SOLUONG=".$params['soluong'].",
+            THANHTIEN=".$params['thanhtien'].",
             WHERE SOPHIEU='".$params['sophieu']."' 
             AND MAVPP= '".$params['mavpp']."'"
         );
@@ -82,9 +88,9 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         mysqli_commit($this->conn);
     }
 
-    public function selectDetail($params) {
+    public function selectDetail($sophieu) {
         $result = mysqli_query($this->conn,"SELECT * FROM chitietphieucc WHERE 
-        SOPHIEU='".$params['sophieu']."'");
+        SOPHIEU='".$sophieu."'");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));

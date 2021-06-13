@@ -3,9 +3,19 @@
 class PhieuCungCapController {
     public function show($argv) {
         $phieuccDb = new PhieuCungCapDatabase();
+
+        $phieuArray = array();
+        $phieucc = $phieuccDb->select($argv);
+        
+        foreach ($phieucc as $key => $phieu) {
+            $chitiet = $phieuccDb->selectDetail($phieu['SOPHIEU']);
+            $phieu['CHITIET'] = $chitiet;
+            array_push($phieuArray, $phieu);
+        }
+
         Response::json(array(
             'request' => $argv,
-            'viewData' => $phieuccDb->select($argv)
+            'viewData' => $phieuArray
         ));
     }
 
