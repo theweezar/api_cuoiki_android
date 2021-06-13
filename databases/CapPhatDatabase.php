@@ -207,13 +207,17 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
         
         if (isset($params['mapb'])) {
             $sql = "
-            SELECT BC.SOPHIEU,BC.MANV,BC.NGAYCAP,BC.TENVPP,BC.TRIGIA FROM (SELECT R.SOPHIEU, R.NGAYCAP, R.TENVPP, R.TRIGIA, L.MANV, L.MAPB FROM
+            SELECT (@STT:=@STT+1) as STT, BC.SOPHIEU,BC.MANV,BC.NGAYCAP,BC.TENVPP,BC.TRIGIA FROM 
+            (SELECT R.SOPHIEU, R.NGAYCAP, 
+            R.TENVPP, R.TRIGIA, L.MANV, L.MAPB FROM
             (SELECT NV.*, PB.TENPB FROM NHANVIEN NV JOIN PHONGBAN PB ON NV.MAPB = PB.MAPB ) AS L
             JOIN
             (SELECT CP.SOPHIEU, CP.NGAYCAP, VPP.TENVPP, CP.SOLUONG*VPP.GIANHAP AS TRIGIA ,CP.MANV
             FROM CAPPHAT CP JOIN VANPHONGPHAM VPP
             ON CP.MAVPP = VPP.MAVPP) AS R
-            ON L.MANV = R.MANV) AS BC WHERE BC.MAPB = '".$params['mapb']."'
+            ON L.MANV = R.MANV) AS BC 
+            CROSS JOIN (SELECT @STT := 0) AS D
+            WHERE BC.MAPB = '".$params['mapb']."'
             ";
         }
 
