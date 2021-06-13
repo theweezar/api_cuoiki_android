@@ -219,7 +219,8 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
 
         if (isset($params['manv'])) {
             $sql = "
-            SELECT SOPHIEU, NGAYCAP, TENVPP, TRIGIA FROM 
+            SET @STT=0;
+            SELECT @STT:=@STT+1 as STT, SOPHIEU, NGAYCAP, TENVPP, TRIGIA FROM 
             (SELECT CP.SOPHIEU, NGAYCAP, TENVPP, CP.SOLUONG * GIANHAP AS TRIGIA, MANV
             FROM CAPPHAT CP JOIN VANPHONGPHAM VPP ON CP.MAVPP = VPP.MAVPP 
             WHERE CP.MANV = '".$params['manv']."') AS A
