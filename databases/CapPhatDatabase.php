@@ -222,7 +222,7 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
             SELECT (@STT:=@STT+1) as STT, SOPHIEU, NGAYCAP, TENVPP, TRIGIA FROM 
             (SELECT CP.SOPHIEU, NGAYCAP, TENVPP, CP.SOLUONG * GIANHAP AS TRIGIA, MANV
             FROM CAPPHAT CP JOIN VANPHONGPHAM VPP ON CP.MAVPP = VPP.MAVPP 
-            WHERE CP.MANV = 'NV01') AS A
+            WHERE CP.MANV = '".$params['manv']."') AS A
             CROSS JOIN (SELECT @STT := 0) AS D
             ";
         }
