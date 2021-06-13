@@ -219,12 +219,16 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
 
         if (isset($params['manv'])) {
             $sql = "
-            SET @STT=0;
-            SELECT @STT:=@STT+1 as STT, SOPHIEU, NGAYCAP, TENVPP, TRIGIA FROM 
+            SELECT (@STT:=@STT+1) as STT, SOPHIEU, NGAYCAP, TENVPP, TRIGIA FROM 
             (SELECT CP.SOPHIEU, NGAYCAP, TENVPP, CP.SOLUONG * GIANHAP AS TRIGIA, MANV
             FROM CAPPHAT CP JOIN VANPHONGPHAM VPP ON CP.MAVPP = VPP.MAVPP 
-            WHERE CP.MANV = '".$params['manv']."') AS A
+            WHERE CP.MANV = 'NV01') AS A
+            CROSS JOIN (SELECT @STT := 0) AS D
             ";
+        }
+
+        if (strlen($sql) === 0) {
+            return array();
         }
 
         $result = mysqli_query($this->conn, $sql);
