@@ -10,7 +10,7 @@ class PrinterController {
             ob_start();
             Response::render('table.php', $viewData);
             $htmlContent = ob_get_clean();
-            sendMail("minhducducminh1999@gmail.com", "Minh Duc", "Report", $htmlContent);
+            sendMail("daiphan308@gmail.com", "Minh Duc", "Report", $htmlContent);
             Response::render('table.php', $viewData);
         }
     }
