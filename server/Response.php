@@ -1,7 +1,7 @@
 <?php 
 
 class Response {
-    public static function render(string $view, $view_data = array()){
+    public static function render(string $view, $viewData = array()){
         require($_SERVER['DOCUMENT_ROOT'].'/../views/'.$view);
     }
 
