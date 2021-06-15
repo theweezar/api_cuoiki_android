@@ -14,7 +14,8 @@ class PhieuCungCapController {
 
         Response::json(array(
             'request' => $argv,
-            'viewData' => $phieuArray
+            'viewData' => $phieuArray,
+            'success' => true
         ));
     }
 
