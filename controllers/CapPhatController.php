@@ -106,4 +106,33 @@ class CapPhatController {
             'success' => true
         ));
     }
+
+    public function insert($argv) {
+        $capphatDb = new CapPhatDatabase();
+        $vppDb = new VanPhongPhamDatabase();
+        $argv['params'] = checkInputParams($argv['params']);
+        $vpp = $vppDb->select($argv['params']);
+
+        if ($capphatDb->isExistID($argv['params']['sophieu'])) {
+            Response::json(array(
+                'success' => false,
+                'message' => 'SOPHIEU is existed'
+            ));
+        }
+        else if (intval($vpp[0]['SOLUONG']) < intval($argv['params']['soluong'])) {
+            Response::json(array(
+                'success' => false,
+                'message' => 'SOLUONG in VPP is not enough'
+            ));
+        }
+        else {
+            $vpp[0]['SOLUONG'] = intval($vpp[0]['SOLUONG']) - intval($argv['params']['soluong']);
+            $vppDb->update(convertKeyToLowerCase($vpp));
+            $capphatDb->insert($argv['params']);
+            Response::json(array(
+                'request' => $argv,
+                'success' => true
+            ));
+        }
+    }
 }

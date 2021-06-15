@@ -9,7 +9,17 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
     }
 
     public function insert($params) {
-
+        mysqli_query(
+            $this->conn,"
+            INSERT INTO capphat (SOPHIEU, NGAYCAP, MAVPP, MANV, SOLUONG) 
+            VALUES(
+                '".$params['sophieu']."',
+                NOW(),
+                '".$params['mavpp']."',
+                '".$params['manv']."',
+                '".$params['soluong']."')"
+        );
+        mysqli_commit($this->conn);
     }
 
     public function update($params) {
@@ -25,12 +35,21 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $result = mysqli_query($this->conn,"SELECT * FROM capphat");
+        $sql = isset($params['sophieu']) ?
+        "SELECT * FROM capphat WHERE SOPHIEU='".$params['sophieu']."'": 
+        "SELECT * FROM capphat";
+        $result = mysqli_query($this->conn, $sql);
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
         }
         return $data;
+    }
+
+    public function isExistID($sophieu) {
+        $result = mysqli_query($this->conn,"SELECT * FROM capphat WHERE 
+        SOPHIEU= '".$sophieu."' ");
+        return mysqli_num_rows($result) == 0 ? false : true;
     }
 
     public function thongKeCau2a() {

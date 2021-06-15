@@ -17,7 +17,7 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
                 '".$params['trangthai']."',
                 '".$params['mancc']."',
                 NOW(),
-                NULL)"
+                '".$params['ngaygiao']."')"
         );
         mysqli_commit($this->conn);
     }

@@ -12,10 +12,18 @@ function checkInputParams($params) {
     return $params;
 }
 
-function getRandomString($length){
+function getRandomString($length) {
     $str = "";
     for($i = 0; $i < $length; $i+=1){
         $str = $str.chr(rand(97,122));
     }
     return $str;
+}
+
+function convertKeyToLowerCase($object) {
+    foreach (array_keys($object) as $key) {
+        $object[strtolower($key)] = $object[$key];
+        unset($object[$key]);
+    }
+    return $object;
 }
