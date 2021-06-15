@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2021 at 07:06 AM
+-- Generation Time: Jun 15, 2021 at 04:56 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -122,8 +122,18 @@ INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
 
 CREATE TABLE `phieucungcap` (
   `SOPHIEU` varchar(100) NOT NULL,
-  `TRANGTHAI` enum('OPEN','DELIVERIED','CANCELLED') NOT NULL
+  `TRANGTHAI` enum('OPENING','CONFIRMED','DELIVERIED','CANCELLED') NOT NULL,
+  `MANCC` varchar(100) NOT NULL,
+  `NGAYDAT` date DEFAULT NULL,
+  `NGAYGIAO` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `phieucungcap`
+--
+
+INSERT INTO `phieucungcap` (`SOPHIEU`, `TRANGTHAI`, `MANCC`, `NGAYDAT`, `NGAYGIAO`) VALUES
+('P1', 'OPENING', 'VPPSH', '2021-06-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -149,7 +159,10 @@ INSERT INTO `phongban` (`MAPB`, `TENPB`) VALUES
 ('PB06', 'PHONG BAO VE'),
 ('PB07', 'NHA BEP'),
 ('PB08', 'PHONG SUA XE'),
-('PB09', 'PHONG MAY DO');
+('PB09', 'PHONG MAY DO'),
+('PB10', 'NHA VE SINH'),
+('PB11', 'CHUONG HEO'),
+('PB12', 'NHA XE');
 
 -- --------------------------------------------------------
 
@@ -178,7 +191,7 @@ INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUON
 ('VPP04', 'BÚT BI ĐỎ', 'HỘP', 50000, NULL, 5, 'VPPSH'),
 ('VPP05', 'ĐẦU BẤM', 'CÁI', 18000, NULL, 5, 'VPPVNC'),
 ('VPP06', 'KEO DÁN HAI MẶT', 'CÁI', 11000, NULL, 7, 'VPPVNC'),
-('VPP07', 'BAN PHIM', 'CAI', 10, 'pmfbdjvhoa.jpg', 1, 'VPPSH');
+('VPP07', 'BAN PHIM', 'CAI', 10, 'yksamtboze.jpg', 1, 'VPPKBTC');
 
 --
 -- Indexes for dumped tables
