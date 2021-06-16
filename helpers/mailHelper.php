@@ -22,8 +22,8 @@ function sendMail($emailTo, $nameTo, $subject, $content) {
     
     $mail->AddAddress($emailTo, $nameTo);
     $mail->SetFrom("hpmduc3010@gmail.com", "3xD Company");
-    $mail->AddReplyTo("minhducducminh1999@gmail.com", "reply-to-name");
-    $mail->AddCC("hpmduc1999@gmail.com", "cc-recipient-name");
+    $mail->AddReplyTo("hpmduc3010@gmail.com", "Minh Duc");
+    $mail->AddCC("daiphan308@gmail.com", "Dai");
     
     $mail->Subject = $subject;
     

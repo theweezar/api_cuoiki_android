@@ -7,9 +7,11 @@ class PhieuCungCapController {
         $phieuArray = array();
         $phieucc = $phieuccDb->select($argv);
         
-        foreach ($phieucc as $key => $phieu) {
-            $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
-            array_push($phieuArray, $phieu);
+        if (count($phieucc) >= 1 && isset($phieucc[0]['SOPHIEU'])) {
+            foreach ($phieucc as $key => $phieu) {
+                $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
+                array_push($phieuArray, $phieu);
+            }
         }
 
         Response::json(array(
