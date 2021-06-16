@@ -81,7 +81,28 @@ class PhieuCungCapController {
             $phieuccDb = new PhieuCungCapDatabase();
             $argv['params'] = checkInputParams($argv['params']);
             $phieuccDb->update($argv['params']);
-            Response::json(array(
+            if (strcmp($argv['params']['trangthai'], 'CONFIRMED')) {
+                $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
+                $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+                $emailTo = $emailInfo[0]['EMAIL'];
+                $nameTo = $emailInfo[0]['TENNCC'];
+                
+                ob_start();
+                Response::render('table.php', array(
+                    'ngayGiao' => $emailInfo[0]['NGAYGIAO'],
+                    'soPhieu' => $emailInfo[0]['SOPHIEU'],
+                    'chitietcc' => $chitietcc
+                ));
+                $htmlContent = ob_get_clean();
+                sendMail($emailTo, $nameTo, "Phieu dat hang", $htmlContent);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true,
+                    'emailInfo' => $emailInfo,
+                    'chitietcc' => $chitietcc
+                ));
+            }
+            else Response::json(array(
                 'request' => $argv,
                 'success' => true
             ));
@@ -92,6 +113,21 @@ class PhieuCungCapController {
                 'message' => 'Method is not allowed'
             ), 405);
         }
+    }
+
+    public function test($argv) {
+        $phieuccDb = new PhieuCungCapDatabase();
+        $argv['params'] = checkInputParams($argv['params']);
+        $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
+        $emailTo = $emailInfo[0]['EMAIL'];
+        $nameTo = $emailInfo[0]['TENNCC'];
+        
+        // ob_start();
+        Response::render('phieucungcap.php', array(
+            'ngayGiao' => $emailInfo[0]['NGAYGIAO'],
+            'soPhieu' => $emailInfo[0]['SOPHIEU'],
+            'chitietcc' => $phieuccDb->selectDetail($argv['params']['sophieu'])
+        ));
     }
 
     public function updateDetail($argv) {

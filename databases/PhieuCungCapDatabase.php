@@ -97,8 +97,11 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     }
 
     public function selectDetail($sophieu) {
-        $result = mysqli_query($this->conn,"SELECT * FROM chitietphieucc WHERE 
-        SOPHIEU='".$sophieu."'");
+        $result = mysqli_query($this->conn,"
+        SELECT CT.ID, CT.SOPHIEU, CT.MAVPP, CT.SOLUONG, CT.THANHTIEN, V.TENVPP, 
+        V.DVT FROM chitietphieucc CT, vanphongpham V WHERE CT.MAVPP = V.MAVPP 
+        AND CT.SOPHIEU = '".$sophieu."'
+        ");
         $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
@@ -116,5 +119,17 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         $result = mysqli_query($this->conn,"SELECT * FROM phieucungcap WHERE 
         TRANGTHAI='OPENING' ");
         return mysqli_num_rows($result) == 0 ? false : true;
+    }
+
+    public function getEmailInfo($sophieu) {
+        $sql = "
+        SELECT P.SOPHIEU, P.MANCC, N.TENNCC, N.EMAIL, P.NGAYGIAO FROM phieucungcap P, 
+        nhacungcap N WHERE P.MANCC = N.MANCC AND P.SOPHIEU='".$sophieu."'";
+        $result = mysqli_query($this->conn, $sql);
+        $data = array();
+        for ($i = 0; $i < mysqli_num_rows($result); $i++){
+            array_push($data, mysqli_fetch_assoc($result));
+        }
+        return $data;
     }
 }
