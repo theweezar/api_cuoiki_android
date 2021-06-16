@@ -79,6 +79,10 @@ class PhieuCungCapController {
             $phieuccDb = new PhieuCungCapDatabase();
             $argv['params'] = checkInputParams($argv['params']);
             $phieuccDb->update($argv['params']);
+            Response::json(array(
+                'request' => $argv,
+                'success' => true
+            ));
         }
         else {
             Response::json(array(
