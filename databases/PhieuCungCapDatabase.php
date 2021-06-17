@@ -27,7 +27,8 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
             $this->conn, 
             "UPDATE phieucungcap SET 
             TRANGTHAI='".$params['trangthai']."',
-            NGAYGIAO='".$params['ngaygiao']."'
+            NGAYGIAO='".$params['ngaygiao']."',
+            MANCC='".$params['mancc']."'
             WHERE SOPHIEU='".$params['sophieu']."' "
         );
         mysqli_commit($this->conn);
