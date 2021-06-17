@@ -35,15 +35,12 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
     }
 
     public function select($params) {
-        $sql = null;
+        $sql = "SELECT * FROM capphat";
         if (isset($params['sophieu'])) {
             $sql = "SELECT * FROM capphat WHERE SOPHIEU='".$params['sophieu']."'";
         }
-        else if (isset($params['manv'])) {
+        if (isset($params['manv'])) {
             $sql = "SELECT * FROM capphat WHERE MANV='".$params['manv']."'";
-        }
-        else {
-            $sql = "SELECT * FROM capphat";
         }
         $result = mysqli_query($this->conn, $sql);
         $data = array();

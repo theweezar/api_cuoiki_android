@@ -5,7 +5,7 @@ class CapPhatController {
         $capphatDb = new CapPhatDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $capphatDb->select($argv),
+            'viewData' => $capphatDb->select($argv['params']),
             'success' => true
         ));
     }
