@@ -97,8 +97,7 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         mysqli_query(
             $this->conn,
             "DELETE FROM chitietphieucc 
-            WHERE SOPHIEU='".$params['sophieu']."' 
-            AND MAVPP='".$params['mavpp']."' "
+            WHERE ID='".$params['id']."' "
         );
         mysqli_commit($this->conn);
     }
