@@ -81,6 +81,7 @@ class PhieuCungCapController {
             $phieuccDb = new PhieuCungCapDatabase();
             $argv['params'] = checkInputParams($argv['params']);
             $phieuccDb->update($argv['params']);
+            // ======================== //
             if (strcmp($argv['params']['trangthai'], 'CONFIRMED')) {
                 $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
                 $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
