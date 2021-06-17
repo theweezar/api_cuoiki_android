@@ -98,12 +98,15 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
     }
 
     public function selectDetail($sophieu) {
+        $data = array();
+        if (!isset($sophieu)) {
+            return $data;
+        }
         $result = mysqli_query($this->conn,"
         SELECT CT.ID, CT.SOPHIEU, CT.MAVPP, CT.SOLUONG, CT.THANHTIEN, V.TENVPP, 
         V.DVT FROM chitietphieucc CT, vanphongpham V WHERE CT.MAVPP = V.MAVPP 
         AND CT.SOPHIEU = '".$sophieu."'
         ");
-        $data = array();
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
         }

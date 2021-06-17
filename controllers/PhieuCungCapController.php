@@ -21,6 +21,15 @@ class PhieuCungCapController {
         ));
     }
 
+    public function showDetail($argv) {
+        $phieuccDb = new PhieuCungCapDatabase();
+        Response::json(array(
+            'request' => $argv,
+            'viewData' => $phieuccDb->selectDetail($argv['params']['sophieu']),
+            'success' => true
+        ));
+    }
+
     public function insert($argv) {
         if ($argv['request_method'] === 'POST') {
             $phieuccDb = new PhieuCungCapDatabase();
