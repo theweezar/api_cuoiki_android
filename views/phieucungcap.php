@@ -14,10 +14,23 @@
             border: 1px solid black;
             padding: 5px;
         }
+        b {
+            display: inline-block;
+            min-width: 5rem;
+        }
     </style>
 </head>
 <body>
-<table>
+    <h1>Đơn đặt hàng</h1>
+    <p>
+        <b>Số phiếu: </b>
+        <?php echo $viewData['sophieu'] ?>
+    </p>
+    <p>
+        <b>Ngày giao: </b>
+        <?php echo $viewData['ngaygiao'] ?>
+    </p>
+    <table>
         <tr>
             <th>TÊN VĂN PHÒNG PHẨM</th>
             <th>SỐ LƯỢNG</th>
@@ -36,6 +49,12 @@
             <?php   
         }
         ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>TỔNG CỘNG</td>
+            <td><?php echo $viewData['tongcong'] ?></td>
+        </tr>
     </table>
 </body>
 </html>

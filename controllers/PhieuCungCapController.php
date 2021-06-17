@@ -7,16 +7,16 @@ class PhieuCungCapController {
         $phieuArray = array();
         $phieucc = $phieuccDb->select($argv);
         
-        if (count($phieucc) >= 1 && isset($phieucc[0]['SOPHIEU'])) {
-            foreach ($phieucc as $key => $phieu) {
-                $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
-                array_push($phieuArray, $phieu);
-            }
-        }
+        // if (count($phieucc) >= 1 && isset($phieucc[0]['SOPHIEU'])) {
+        //     foreach ($phieucc as $key => $phieu) {
+        //         $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
+        //         array_push($phieuArray, $phieu);
+        //     }
+        // }
 
         Response::json(array(
             'request' => $argv,
-            'viewData' => $phieuArray,
+            'viewData' => $phieucc,
             'success' => true
         ));
     }
@@ -84,14 +84,16 @@ class PhieuCungCapController {
             if (strcmp($argv['params']['trangthai'], 'CONFIRMED')) {
                 $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
                 $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+                $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
                 $emailTo = $emailInfo[0]['EMAIL'];
                 $nameTo = $emailInfo[0]['TENNCC'];
                 
                 ob_start();
                 Response::render('table.php', array(
-                    'ngayGiao' => $emailInfo[0]['NGAYGIAO'],
-                    'soPhieu' => $emailInfo[0]['SOPHIEU'],
-                    'chitietcc' => $chitietcc
+                    'ngaygiao' => $emailInfo[0]['NGAYGIAO'],
+                    'sophieu' => $emailInfo[0]['SOPHIEU'],
+                    'chitietcc' => $chitietcc,
+                    'tongcong' => $tongcong
                 ));
                 $htmlContent = ob_get_clean();
                 sendMail($emailTo, $nameTo, "Phieu dat hang", $htmlContent);
@@ -118,16 +120,22 @@ class PhieuCungCapController {
     public function test($argv) {
         $phieuccDb = new PhieuCungCapDatabase();
         $argv['params'] = checkInputParams($argv['params']);
+        // ======================== //
         $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
+        $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+        $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
         $emailTo = $emailInfo[0]['EMAIL'];
         $nameTo = $emailInfo[0]['TENNCC'];
         
-        // ob_start();
+        ob_start();
         Response::render('phieucungcap.php', array(
-            'ngayGiao' => $emailInfo[0]['NGAYGIAO'],
-            'soPhieu' => $emailInfo[0]['SOPHIEU'],
-            'chitietcc' => $phieuccDb->selectDetail($argv['params']['sophieu'])
+            'ngaygiao' => $emailInfo[0]['NGAYGIAO'],
+            'sophieu' => $emailInfo[0]['SOPHIEU'],
+            'chitietcc' => $chitietcc,
+            'tongcong' => $tongcong
         ));
+        $htmlContent = ob_get_clean();
+        sendMail($emailTo, $nameTo, "Phieu dat hang", $htmlContent);
     }
 
     public function updateDetail($argv) {
