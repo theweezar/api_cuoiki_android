@@ -86,7 +86,7 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
             $this->conn,
             "UPDATE chitietphieucc SET
             SOLUONG=".$params['soluong'].",
-            THANHTIEN=".$params['thanhtien'].",
+            THANHTIEN=".$params['thanhtien']."
             WHERE ID=".$params['id']." "
         );
         mysqli_commit($this->conn);
