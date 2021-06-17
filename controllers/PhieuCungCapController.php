@@ -6,13 +6,6 @@ class PhieuCungCapController {
 
         $phieuArray = array();
         $phieucc = $phieuccDb->select($argv);
-        
-        // if (count($phieucc) >= 1 && isset($phieucc[0]['SOPHIEU'])) {
-        //     foreach ($phieucc as $key => $phieu) {
-        //         $phieu['CHITIET'] = $phieuccDb->selectDetail($phieu['SOPHIEU']);
-        //         array_push($phieuArray, $phieu);
-        //     }
-        // }
 
         Response::json(array(
             'request' => $argv,
@@ -25,7 +18,7 @@ class PhieuCungCapController {
         $phieuccDb = new PhieuCungCapDatabase();
         Response::json(array(
             'request' => $argv,
-            'viewData' => $phieuccDb->selectDetail($argv['params']['sophieu']),
+            'viewData' => $phieuccDb->selectDetail($argv['params']),
             'success' => true
         ));
     }
@@ -71,10 +64,12 @@ class PhieuCungCapController {
 
             $argv['params']['thanhtien'] = $thanhtien;
 
-            $phieuccDb->insertDetail($argv['params']);
+            $newId = $phieuccDb->insertDetail($argv['params']);
+
             Response::json(array(
                 'request' => $argv,
-                'success' => true
+                'success' => true,
+                'ID' => count($newId) !== 0 ? $newId[0]['ID'] : null
             ));
         }
         else {

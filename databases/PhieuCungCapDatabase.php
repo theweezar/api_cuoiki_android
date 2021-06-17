@@ -73,6 +73,12 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
                 '".$params['thanhtien']."')"
         );
         mysqli_commit($this->conn);
+        $result = mysqli_query($this->conn, "SELECT ID FROM chitietphieucc ORDER BY ID DESC LIMIT 1");
+        $data = array();
+        for ($i = 0; $i < mysqli_num_rows($result); $i++){
+            array_push($data, mysqli_fetch_assoc($result));
+        }
+        return $data;
     }
 
     public function updateDetail($params) {
@@ -97,16 +103,31 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         mysqli_commit($this->conn);
     }
 
-    public function selectDetail($sophieu) {
+    public function selectDetail($params) {
         $data = array();
-        if (!isset($sophieu)) {
+        $sql = "";
+
+        if (!isset($params['sophieu']) && !isset($params['id'])) {
             return $data;
         }
-        $result = mysqli_query($this->conn,"
-        SELECT CT.ID, CT.SOPHIEU, CT.MAVPP, CT.SOLUONG, CT.THANHTIEN, V.TENVPP, 
-        V.DVT FROM chitietphieucc CT, vanphongpham V WHERE CT.MAVPP = V.MAVPP 
-        AND CT.SOPHIEU = '".$sophieu."'
-        ");
+
+        if (isset($params['sophieu'])) {
+            $sql = "
+            SELECT CT.ID, CT.SOPHIEU, CT.MAVPP, CT.SOLUONG, CT.THANHTIEN, V.TENVPP, 
+            V.DVT FROM chitietphieucc CT, vanphongpham V WHERE CT.MAVPP = V.MAVPP 
+            AND CT.SOPHIEU = '".$params['sophieu']."'
+            ";
+        }
+
+        if (isset($params['id'])) {
+            $sql = "
+            SELECT CT.ID, CT.SOPHIEU, CT.MAVPP, CT.SOLUONG, CT.THANHTIEN, V.TENVPP, 
+            V.DVT FROM chitietphieucc CT, vanphongpham V WHERE CT.MAVPP = V.MAVPP 
+            AND CT.ID = '".$params['id']."'
+            ";
+        }
+        
+        $result = mysqli_query($this->conn, $sql);
         for ($i = 0; $i < mysqli_num_rows($result); $i++){
             array_push($data, mysqli_fetch_assoc($result));
         }
