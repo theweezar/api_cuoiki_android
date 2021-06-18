@@ -131,7 +131,8 @@ class CapPhatController {
             $capphatDb->insert($argv['params']);
             Response::json(array(
                 'request' => $argv,
-                'success' => true
+                'success' => true,
+                'vpp' => $vpp
             ));
         }
     }
