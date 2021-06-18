@@ -158,7 +158,7 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
 
     public function getDeliveriedItemToday() {
         $sql = "
-        SELECT V.MAVPP, V.TENVPP, V.DVT, V.GIANHAP, SUM(CT.SOLUONG) AS SOLUONGMOIVE 
+        SELECT V.MAVPP, V.TENVPP, V.DVT, V.GIANHAP, V.HINH, SUM(CT.SOLUONG) AS SOLUONG, V.MANCC
         FROM chitietphieucc CT, vanphongpham V, phieucungcap P WHERE 
         CT.MAVPP = V.MAVPP AND CT.SOPHIEU = P.SOPHIEU AND 
         P.NGAYGIAO = CURRENT_DATE() GROUP BY V.MAVPP
