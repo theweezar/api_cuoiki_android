@@ -23,7 +23,7 @@ function getRandomString($length) {
 function convertKeyToLowerCase($object) {
     foreach (array_keys($object) as $key) {
         $object[strtolower($key)] = $object[$key];
-        // unset($object[$key]);
+        unset($object[$key]);
     }
     return $object;
 }

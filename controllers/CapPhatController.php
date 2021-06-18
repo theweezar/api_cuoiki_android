@@ -127,13 +127,26 @@ class CapPhatController {
         }
         else {
             $vpp[0]['SOLUONG'] = intval($vpp[0]['SOLUONG']) - intval($argv['params']['soluong']);
-            $vppDb->update(convertKeyToLowerCase($vpp));
+            $vppDb->update(convertKeyToLowerCase($vpp[0]));
             $capphatDb->insert($argv['params']);
             Response::json(array(
                 'request' => $argv,
                 'success' => true,
-                'vpp' => $vpp
+                'vpp' => $vpp[0]
             ));
         }
+    }
+
+    public function testConvert($argv) {
+        $vppDb = new VanPhongPhamDatabase();
+        $argv['params'] = checkInputParams($argv['params']);
+        $vpp = $vppDb->select($argv['params']);
+        Response::json(array(
+            'request' => $argv,
+            'success' => true,
+            'vpp' => $vpp,
+            'convertKey' => convertKeyToLowerCase($vpp[0]),
+            's' => strtolower('A')
+        ));
     }
 }
