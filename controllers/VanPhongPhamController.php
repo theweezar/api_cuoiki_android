@@ -86,12 +86,21 @@ class VanPhongPhamController {
     public function remove($argv) {
         if ($argv['request_method'] === 'POST'){
             $vppDb = new VanPhongPhamDatabase();
+            $capphatDb = new CapPhatDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            $vppDb->remove($argv['params']);
-            Response::json(array(
-                'request' => $argv,
-                'success' => true
-            ));
+            if (!$capphatDb->isVppExist($argv['params'])) {
+                $vppDb->remove($argv['params']);
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
+            }
+            else {
+                Response::json(array(
+                    'success' => false,
+                    'message' => 'VPP exists in CAPPHAT'
+                ));
+            }
         }
         else {
             Response::json(array(
