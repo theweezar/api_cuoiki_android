@@ -100,4 +100,23 @@ class VanPhongPhamController {
             ), 405);
         }
     }
+
+    public function isExistInCapPhat($argv) {
+        $capphatDb = new CapPhatDatabase();
+        $argv['params'] = checkInputParams($argv['params']);
+        if ($capphatDb->isVppExist($argv['params'])) {
+            Response::json(array(
+                'success' => false,
+                'message' => 'VPP exists in CAPPHAT',
+                'request' => $argv
+            ));
+        }
+        else {
+            Response::json(array(
+                'success' => true,
+                'message' => 'Ok',
+                'request' => $argv
+            ));
+        }
+    }
 }

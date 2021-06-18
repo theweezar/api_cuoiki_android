@@ -7,7 +7,9 @@ function checkInput($string) {
 
 function checkInputParams($params) {
     foreach (array_keys($params) as $key) {
-        $params[$key] = strtoupper(checkInput($params[$key]));
+        if (strcmp($key,'url') !== 0) {
+            $params[$key] = strtoupper(checkInput($params[$key]));
+        }
     }
     return $params;
 }
