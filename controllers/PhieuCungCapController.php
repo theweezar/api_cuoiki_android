@@ -57,7 +57,6 @@ class PhieuCungCapController {
             $phieuccDb = new PhieuCungCapDatabase();
             $vppDb = new VanPhongPhamDatabase();
             $argv['params'] = checkInputParams($argv['params']);
-            $argv['params']['soluong'] = 1;
 
             $vpp = $vppDb->select($argv['params']);
             $thanhtien = intval($argv['params']['soluong']) * intval($vpp[0]['GIANHAP']);
@@ -69,7 +68,7 @@ class PhieuCungCapController {
             Response::json(array(
                 'request' => $argv,
                 'success' => true,
-                'ID' => count($newId) !== 0 ? $newId[0]['ID'] : null
+                'ID' => count($newId) !== 0 ? $newId[0]['ID'] : null 
             ));
         }
         else {
