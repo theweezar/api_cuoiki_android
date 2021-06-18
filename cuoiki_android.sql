@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2021 at 01:56 PM
+-- Generation Time: Jun 18, 2021 at 04:48 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -90,9 +90,9 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`MANCC`, `TENNCC`, `EMAIL`) VALUES
-('VPPKBTC', 'VĂN PHÒNG PHẨM KIM BIÊN TOÀN CẦU', 'minhducducminh1999@gmail.com\r\n'),
-('VPPSH', 'VĂN PHÒNG PHẨM SANG HÀ', 'minhducducminh1999@gmail.com\r\n'),
-('VPPVNC', 'VĂN PHÒNG PHẨM VINACOM', 'minhducducminh1999@gmail.com\r\n');
+('VPPKBTC', 'VAN PHONG PHAM KIM BIEN TOAN CAU', 'minhducducminh1999@gmail.com\r\n'),
+('VPPSH', 'VAN PHONG PHAM SAN HA', 'minhducducminh1999@gmail.com\r\n'),
+('VPPVNC', 'VAN PHONG PHAM VINACOM', 'minhducducminh1999@gmail.com\r\n');
 
 -- --------------------------------------------------------
 
@@ -113,15 +113,14 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
-('NV01', 'NGUYỄN THÀNH NAM', '1982-08-01', 'PB01', NULL),
-('NV02', 'VŨ THỊ THẮM', '1992-08-12', 'PB01', NULL),
-('NV03', 'HỒ THANH TÂM', '1990-06-05', 'PB02', NULL),
-('NV04', 'NGÔ ĐỨC TRUNG', '1990-08-04', 'PB02', NULL),
-('NV05', 'VŨ VĂN NAM', '1992-12-02', 'PB03', NULL),
-('NV06', 'TRẦN VĂN THẮNG', '1991-08-23', 'PB04', NULL),
-('NV07', 'HÀ QUANG DỰ', '1985-08-07', 'PB04', NULL),
-('NV08', 'NGÔ PHƯƠNG LAN', '1990-02-01', 'PB05', NULL),
-('NV09', 'LUCKY LUKE', '1964-04-12', 'PB01', '');
+('NV01', 'NGUYEN THANH NAM', '1982-08-01', 'PB01', NULL),
+('NV02', 'VU THI THAM', '1992-08-12', 'PB01', NULL),
+('NV03', 'HO THANH TAM', '1990-06-05', 'PB02', NULL),
+('NV04', 'NGO DUC TRUNG', '1990-08-04', 'PB02', NULL),
+('NV05', 'VU VAN NAM', '1992-12-02', 'PB03', NULL),
+('NV06', 'TRAN VAN THANG', '1991-08-23', 'PB04', NULL),
+('NV07', 'HA QUANG DU', '1985-08-07', 'PB04', NULL),
+('NV08', 'NGO PHUONG LAN', '1990-02-01', 'PB05', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,12 +194,12 @@ CREATE TABLE `vanphongpham` (
 --
 
 INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUONG`, `MANCC`) VALUES
-('VPP01', 'GIẤY A4', 'GRAM', 70000, NULL, 16, 'VPPKBTC'),
-('VPP02', 'KÉO', 'CÁI', 12000, NULL, 20, 'VPPKBTC'),
-('VPP03', 'BÚT BI XANH', 'HỘP', 50000, NULL, 5, 'VPPSH'),
-('VPP04', 'BÚT BI ĐỎ', 'HỘP', 50000, NULL, 5, 'VPPSH'),
-('VPP05', 'ĐẦU BẤM', 'CÁI', 18000, NULL, 5, 'VPPVNC'),
-('VPP06', 'KEO DÁN HAI MẶT', 'CÁI', 11000, NULL, 7, 'VPPVNC'),
+('VPP01', 'GIAY A4', 'GRAM', 70000, NULL, 16, 'VPPKBTC'),
+('VPP02', 'KEO', 'CAI', 12000, NULL, 20, 'VPPKBTC'),
+('VPP03', 'BUT BI XANH', 'HOP', 50000, NULL, 5, 'VPPSH'),
+('VPP04', 'BUT BI DO', 'HOP', 50000, NULL, 5, 'VPPSH'),
+('VPP05', 'DAU BAM', 'CAI', 18000, NULL, 5, 'VPPVNC'),
+('VPP06', 'KEO DAN HAI MAT', 'CAI', 11000, NULL, 7, 'VPPVNC'),
 ('VPP07', 'BAN PHIM', 'CAI', 10, 'yksamtboze.jpg', 1, 'VPPKBTC');
 
 --
