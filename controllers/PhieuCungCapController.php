@@ -109,9 +109,25 @@ class PhieuCungCapController {
                     'chitietcc' => $chitietcc
                 ));
             }
+            // ======================== //
             else if (strcmp($argv['params']['trangthai'], 'DELIVERIED') === 0) {
-                $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
-
+                $vppDb = new VanPhongPhamDatabase();
+                $chitietcc = $phieuccDb->selectDetail($argv['params']);
+                foreach ($chitietcc as $key => $chitiet) {
+                    $vpp = $vppDb->select(array(
+                        'mavpp' => $chitiet['MAVPP']
+                    ));
+                    $chitiet['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
+                    $updateVpp = array(
+                        'soluong' => $chitiet['SOLUONG'],
+                        'mavpp' => $chitiet['MAVPP']
+                    );
+                    $vppDb->updateQuantity($updateVpp);
+                }
+                Response::json(array(
+                    'request' => $argv,
+                    'success' => true
+                ));
             }
             else Response::json(array(
                 'request' => $argv,
@@ -154,7 +170,15 @@ class PhieuCungCapController {
         // ======================== //
         $chitietcc = $phieuccDb->selectDetail($argv['params']);
         foreach ($chitietcc as $key => $chitiet) {
-            $vppDb->updateQuantity($chitiet);
+            $vpp = $vppDb->select(array(
+                'mavpp' => $chitiet['MAVPP']
+            ));
+            $chitiet['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
+            $updateVpp = array(
+                'soluong' => $chitiet['SOLUONG'],
+                'mavpp' => $chitiet['MAVPP']
+            );
+            $vppDb->updateQuantity($updateVpp);
         }
         Response::json(array(
             'request' => $argv,
