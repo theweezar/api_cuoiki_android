@@ -94,7 +94,7 @@ class PhieuCungCapController {
                 $nameTo = $emailInfo[0]['TENNCC'];
                 
                 ob_start();
-                Response::render('table.php', array(
+                Response::render('phieucungcap.php', array(
                     'ngaygiao' => $emailInfo[0]['NGAYGIAO'],
                     'sophieu' => $emailInfo[0]['SOPHIEU'],
                     'chitietcc' => $chitietcc,
