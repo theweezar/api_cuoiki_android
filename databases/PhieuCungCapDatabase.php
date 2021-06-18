@@ -155,4 +155,19 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         }
         return $data;
     }
+
+    public function getDeliveriedItemToday() {
+        $sql = "
+        SELECT V.MAVPP, V.TENVPP, V.DVT, V.GIANHAP, SUM(CT.SOLUONG) AS SOLUONGMOIVE 
+        FROM chitietphieucc CT, vanphongpham V, phieucungcap P WHERE 
+        CT.MAVPP = V.MAVPP AND CT.SOPHIEU = P.SOPHIEU AND 
+        P.NGAYGIAO = CURRENT_DATE() GROUP BY V.MAVPP
+        ";
+        $result = mysqli_query($this->conn, $sql);
+        $data = array();
+        for ($i = 0; $i < mysqli_num_rows($result); $i++){
+            array_push($data, mysqli_fetch_assoc($result));
+        }
+        return $data;
+    }
 }

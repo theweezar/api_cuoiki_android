@@ -7,6 +7,15 @@ class PhieuCungCapController {
         $phieuArray = array();
         $phieucc = $phieuccDb->select($argv);
 
+        // if (count($phieucc) >= 1 && isset($phieucc[0]['SOPHIEU'])) {
+        //     foreach ($phieucc as $key => $phieu) {
+        //         $phieu['CHITIET'] = $phieuccDb->selectDetail(array(
+        //             'sophieu' => $phieu['SOPHIEU']
+        //         ));
+        //         array_push($phieuArray, $phieu);
+        //     }
+        // }
+
         Response::json(array(
             'request' => $argv,
             'viewData' => $phieucc,
@@ -253,6 +262,15 @@ class PhieuCungCapController {
 
     public function report($argv) {
         
+    }
+
+    public function getDeliveriedItemToday($argv) {
+        $phieuccDb = new PhieuCungCapDatabase();
+        Response::json(array(
+            'request' => $argv,
+            'success' => true,
+            'viewData' => $phieuccDb->getDeliveriedItemToday()
+        ));
     }
 
 }
