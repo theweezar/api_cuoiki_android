@@ -112,20 +112,23 @@ class PhieuCungCapController {
             else if (strcmp($argv['params']['trangthai'], 'DELIVERIED') === 0) {
                 $vppDb = new VanPhongPhamDatabase();
                 $chitietcc = $phieuccDb->selectDetail($argv['params']);
+                $newVpp = array();
                 foreach ($chitietcc as $key => $chitiet) {
                     $vpp = $vppDb->select(array(
                         'mavpp' => $chitiet['MAVPP']
                     ));
-                    $chitiet['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
+                    $vpp[0]['SOLUONG'] = $chitiet['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
                     $updateVpp = array(
                         'soluong' => $chitiet['SOLUONG'],
                         'mavpp' => $chitiet['MAVPP']
                     );
                     $vppDb->updateQuantity($updateVpp);
+                    array_push($newVpp, $vpp[0]);
                 }
                 Response::json(array(
                     'request' => $argv,
-                    'success' => true
+                    'success' => true,
+                    'viewData' => $newVpp
                 ));
             }
             else Response::json(array(
