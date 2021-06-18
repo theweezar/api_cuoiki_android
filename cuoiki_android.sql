@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2021 at 04:56 PM
+-- Generation Time: Jun 18, 2021 at 01:56 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -64,6 +64,15 @@ CREATE TABLE `chitietphieucc` (
   `THANHTIEN` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `chitietphieucc`
+--
+
+INSERT INTO `chitietphieucc` (`ID`, `SOPHIEU`, `MAVPP`, `SOLUONG`, `THANHTIEN`) VALUES
+(1, 'P1', 'VPP01', 7, 70000),
+(2, 'P1', 'VPP02', 2, 24000),
+(3, 'P2', 'VPP01', 1, 70000);
+
 -- --------------------------------------------------------
 
 --
@@ -81,9 +90,9 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`MANCC`, `TENNCC`, `EMAIL`) VALUES
-('VPPKBTC', 'VĂN PHÒNG PHẨM KIM BIÊN TOÀN CẦU', 'hpmduc1999@gmail.com'),
-('VPPSH', 'VĂN PHÒNG PHẨM SANG HÀ', 'hpmduc1999@gmail.com'),
-('VPPVNC', 'VĂN PHÒNG PHẨM VINACOM', 'hpmduc1999@gmail.com');
+('VPPKBTC', 'VĂN PHÒNG PHẨM KIM BIÊN TOÀN CẦU', 'minhducducminh1999@gmail.com\r\n'),
+('VPPSH', 'VĂN PHÒNG PHẨM SANG HÀ', 'minhducducminh1999@gmail.com\r\n'),
+('VPPVNC', 'VĂN PHÒNG PHẨM VINACOM', 'minhducducminh1999@gmail.com\r\n');
 
 -- --------------------------------------------------------
 
@@ -122,7 +131,7 @@ INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
 
 CREATE TABLE `phieucungcap` (
   `SOPHIEU` varchar(100) NOT NULL,
-  `TRANGTHAI` enum('OPENING','CONFIRMED','DELIVERIED','CANCELLED') NOT NULL,
+  `TRANGTHAI` enum('OPENING','CONFIRMED','DELIVERIED','CANCELED') NOT NULL,
   `MANCC` varchar(100) NOT NULL,
   `NGAYDAT` date DEFAULT NULL,
   `NGAYGIAO` date DEFAULT NULL
@@ -133,7 +142,8 @@ CREATE TABLE `phieucungcap` (
 --
 
 INSERT INTO `phieucungcap` (`SOPHIEU`, `TRANGTHAI`, `MANCC`, `NGAYDAT`, `NGAYGIAO`) VALUES
-('P1', 'OPENING', 'VPPSH', '2021-06-13', NULL);
+('P1', 'OPENING', 'VPPVNC', '2021-06-16', '2021-06-18'),
+('P2', 'CANCELED', 'VPPVNC', '2021-06-16', '2021-06-18');
 
 -- --------------------------------------------------------
 
@@ -185,8 +195,8 @@ CREATE TABLE `vanphongpham` (
 --
 
 INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUONG`, `MANCC`) VALUES
-('VPP01', 'GIẤY A4', 'GRAM', 70000, NULL, 10, 'VPPKBTC'),
-('VPP02', 'KÉO', 'CÁI', 12000, NULL, 5, 'VPPKBTC'),
+('VPP01', 'GIẤY A4', 'GRAM', 70000, NULL, 16, 'VPPKBTC'),
+('VPP02', 'KÉO', 'CÁI', 12000, NULL, 20, 'VPPKBTC'),
 ('VPP03', 'BÚT BI XANH', 'HỘP', 50000, NULL, 5, 'VPPSH'),
 ('VPP04', 'BÚT BI ĐỎ', 'HỘP', 50000, NULL, 5, 'VPPSH'),
 ('VPP05', 'ĐẦU BẤM', 'CÁI', 18000, NULL, 5, 'VPPVNC'),
@@ -247,7 +257,7 @@ ALTER TABLE `vanphongpham`
 -- AUTO_INCREMENT for table `chitietphieucc`
 --
 ALTER TABLE `chitietphieucc`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
