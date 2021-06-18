@@ -88,7 +88,7 @@ class PhieuCungCapController {
             // ======================== //
             if (strcmp($argv['params']['trangthai'], 'CONFIRMED')) {
                 $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
-                $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+                $chitietcc = $phieuccDb->selectDetail($argv['params']);
                 $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
                 $emailTo = $emailInfo[0]['EMAIL'];
                 $nameTo = $emailInfo[0]['TENNCC'];
@@ -109,6 +109,10 @@ class PhieuCungCapController {
                     'chitietcc' => $chitietcc
                 ));
             }
+            else if (strcmp($argv['params']['trangthai'], 'DELIVERIED')) {
+                $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+
+            }
             else Response::json(array(
                 'request' => $argv,
                 'success' => true
@@ -122,12 +126,12 @@ class PhieuCungCapController {
         }
     }
 
-    public function test($argv) {
+    public function testConfirmed($argv) {
         $phieuccDb = new PhieuCungCapDatabase();
         $argv['params'] = checkInputParams($argv['params']);
         // ======================== //
         $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
-        $chitietcc = $phieuccDb->selectDetail($argv['params']['sophieu']);
+        $chitietcc = $phieuccDb->selectDetail($argv['params']);
         $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
         $emailTo = $emailInfo[0]['EMAIL'];
         $nameTo = $emailInfo[0]['TENNCC'];
@@ -141,6 +145,22 @@ class PhieuCungCapController {
         ));
         $htmlContent = ob_get_clean();
         sendMail($emailTo, $nameTo, "Phieu dat hang", $htmlContent);
+    }
+
+    public function testDeliveried($argv) {
+        $phieuccDb = new PhieuCungCapDatabase();
+        $vppDb = new VanPhongPhamDatabase();
+        $argv['params'] = checkInputParams($argv['params']);
+        // ======================== //
+        $chitietcc = $phieuccDb->selectDetail($argv['params']);
+        foreach ($chitietcc as $key => $chitiet) {
+            $vppDb->updateQuantity($chitiet);
+        }
+        Response::json(array(
+            'request' => $argv,
+            'success' => true,
+            'chitietcc' => $chitietcc
+        ));
     }
 
     public function updateDetail($argv) {

@@ -70,4 +70,19 @@ class VanPhongPhamDatabase extends Database implements DatabaseInterface {
         TENVPP= '".$tenvpp."' ");
         return mysqli_num_rows($result) == 0 ? false : true;
     }
+
+    public function updateQuantity($params) {
+        mysqli_query(
+            $this->conn,
+            "UPDATE vanphongpham SET 
+            TENVPP='".$params['tenvpp']."',
+            DVT='".$params['dvt']."',
+            GIANHAP='".$params['gianhap']."',
+            HINH='".$params['hinh']."',
+            SOLUONG='".$params['soluong']."',
+            MANCC='".$params['mancc']."' 
+            WHERE MAVPP='".$params['mavpp']."' "
+        );
+        mysqli_commit($this->conn);
+    }
 }
