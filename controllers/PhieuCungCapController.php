@@ -126,12 +126,13 @@ class PhieuCungCapController {
                     $vpp = $vppDb->select(array(
                         'mavpp' => $chitiet['MAVPP']
                     ));
-                    $vpp[0]['SOLUONG'] = $chitiet['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
+                    $vpp[0]['SOLUONG'] = intval($chitiet['SOLUONG']) + intval($vpp[0]['SOLUONG']);
                     $updateVpp = array(
-                        'soluong' => $chitiet['SOLUONG'],
+                        'soluong' => $vpp[0]['SOLUONG'],
                         'mavpp' => $chitiet['MAVPP']
                     );
                     $vppDb->updateQuantity($updateVpp);
+                    $vpp[0]['SOLUONG'] = $chitiet['SOLUONG'];
                     array_push($newVpp, $vpp[0]);
                 }
                 Response::json(array(
