@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2021 at 04:48 PM
+-- Generation Time: Jun 19, 2021 at 06:59 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -70,7 +70,7 @@ CREATE TABLE `chitietphieucc` (
 
 INSERT INTO `chitietphieucc` (`ID`, `SOPHIEU`, `MAVPP`, `SOLUONG`, `THANHTIEN`) VALUES
 (1, 'P1', 'VPP01', 7, 70000),
-(2, 'P1', 'VPP02', 2, 24000),
+(2, 'P1', 'VPP02', 5, 24000),
 (3, 'P2', 'VPP01', 1, 70000);
 
 -- --------------------------------------------------------
@@ -113,14 +113,14 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`MANV`, `HOTEN`, `NGAYSINH`, `MAPB`, `EMAIL`) VALUES
-('NV01', 'NGUYEN THANH NAM', '1982-08-01', 'PB01', NULL),
-('NV02', 'VU THI THAM', '1992-08-12', 'PB01', NULL),
-('NV03', 'HO THANH TAM', '1990-06-05', 'PB02', NULL),
-('NV04', 'NGO DUC TRUNG', '1990-08-04', 'PB02', NULL),
-('NV05', 'VU VAN NAM', '1992-12-02', 'PB03', NULL),
-('NV06', 'TRAN VAN THANG', '1991-08-23', 'PB04', NULL),
-('NV07', 'HA QUANG DU', '1985-08-07', 'PB04', NULL),
-('NV08', 'NGO PHUONG LAN', '1990-02-01', 'PB05', NULL);
+('NV1', 'NGUYEN THANH NAM', '1982-08-01', 'PB01', NULL),
+('NV2', 'VU THI THAM', '1992-08-12', 'PB01', NULL),
+('NV3', 'HO THANH TAM', '1990-06-05', 'PB02', NULL),
+('NV4', 'NGO DUC TRUNG', '1990-08-04', 'PB02', NULL),
+('NV5', 'VU VAN NAM', '1992-12-02', 'PB03', NULL),
+('NV6', 'TRAN VAN THANG', '1991-08-23', 'PB04', NULL),
+('NV7', 'HA QUANG DU', '1985-08-07', 'PB04', NULL),
+('NV8', 'NGO PHUONG LAN', '1990-02-01', 'PB05', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE `phieucungcap` (
 --
 
 INSERT INTO `phieucungcap` (`SOPHIEU`, `TRANGTHAI`, `MANCC`, `NGAYDAT`, `NGAYGIAO`) VALUES
-('P1', 'OPENING', 'VPPVNC', '2021-06-16', '2021-06-18'),
+('P1', 'DELIVERIED', 'VPPVNC', '2021-06-16', '2021-06-18'),
 ('P2', 'CANCELED', 'VPPVNC', '2021-06-16', '2021-06-18');
 
 -- --------------------------------------------------------
@@ -160,18 +160,14 @@ CREATE TABLE `phongban` (
 --
 
 INSERT INTO `phongban` (`MAPB`, `TENPB`) VALUES
-('PB01', 'PHONG GIAM DOC'),
-('PB02', 'PHONG KINH TE'),
-('PB03', 'PHONG KY THUAT'),
-('PB04', 'PHONG KY THUAT 2'),
-('PB05', 'PHONG SINH HOAT'),
-('PB06', 'PHONG BAO VE'),
-('PB07', 'NHA BEP'),
-('PB08', 'PHONG SUA XE'),
-('PB09', 'PHONG MAY DO'),
-('PB10', 'NHA VE SINH'),
-('PB11', 'CHUONG HEO'),
-('PB12', 'NHA XE');
+('PB1', 'PHONG GIAM DOC'),
+('PB2', 'PHONG KINH TE'),
+('PB3', 'PHONG KY THUAT'),
+('PB4', 'PHONG KY THUAT 2'),
+('PB5', 'PHONG SINH HOAT'),
+('PB6', 'PHONG BAO VE'),
+('PB7', 'NHA BEP'),
+('PB8', 'HAM GUI XE');
 
 -- --------------------------------------------------------
 
@@ -194,13 +190,14 @@ CREATE TABLE `vanphongpham` (
 --
 
 INSERT INTO `vanphongpham` (`MAVPP`, `TENVPP`, `DVT`, `GIANHAP`, `HINH`, `SOLUONG`, `MANCC`) VALUES
-('VPP01', 'GIAY A4', 'GRAM', 70000, NULL, 16, 'VPPKBTC'),
-('VPP02', 'KEO', 'CAI', 12000, NULL, 20, 'VPPKBTC'),
-('VPP03', 'BUT BI XANH', 'HOP', 50000, NULL, 5, 'VPPSH'),
-('VPP04', 'BUT BI DO', 'HOP', 50000, NULL, 5, 'VPPSH'),
-('VPP05', 'DAU BAM', 'CAI', 18000, NULL, 5, 'VPPVNC'),
-('VPP06', 'KEO DAN HAI MAT', 'CAI', 11000, NULL, 7, 'VPPVNC'),
-('VPP07', 'BAN PHIM', 'CAI', 10, 'yksamtboze.jpg', 1, 'VPPKBTC');
+('VPP1', 'GIAY A444', 'GRAM', 70000, NULL, 25, 'VPPKBTC'),
+('VPP2', 'KEO', 'CAI', 12000, NULL, 20, 'VPPKBTC'),
+('VPP3', 'BUT BI XANH', 'HOP', 50000, NULL, 5, 'VPPSH'),
+('VPP4', 'BUT BI DO', 'HOP', 50000, NULL, 5, 'VPPSH'),
+('VPP5', 'DAU BAM', 'CAI', 18000, NULL, 5, 'VPPVNC'),
+('VPP6', 'KEO DAN HAI MAT', 'CAI', 11000, NULL, 7, 'VPPVNC'),
+('VPP7', 'BAN PHIM', 'CAI', 10, NULL, 1, 'VPPKBTC'),
+('VPP8', 'TAY TRANG', 'CUC', 15000, NULL, 16, 'VPPKBTC');
 
 --
 -- Indexes for dumped tables
