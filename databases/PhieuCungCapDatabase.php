@@ -46,13 +46,12 @@ class PhieuCungCapDatabase extends Database implements DatabaseInterface {
         $sql = isset($params['sophieu']) ?
         "
         SELECT L.*, R.THANHTIEN FROM phieucungcap AS L 
-        LEFT JOIN ( SELECT SOPHIEU, SUM(THANHTIEN) AS THANHTIEN FROM chitietphieucc GROUP BY SOPHIEU ) 
+        LEFT JOIN ( SELECT SOPHIEU, SUM(THANHTIEN * SOLUONG) AS THANHTIEN FROM chitietphieucc GROUP BY SOPHIEU ) 
         AS R ON L.SOPHIEU = R.SOPHIEU WHERE L.SOPHIEU = '".$params['sophieu']."';
         ": 
         "
-        SELECT L.*, R.THANHTIEN FROM phieucungcap AS L 
-        LEFT JOIN ( SELECT SOPHIEU, SUM(THANHTIEN) AS THANHTIEN FROM chitietphieucc GROUP BY SOPHIEU ) 
-        AS R ON L.SOPHIEU = R.SOPHIEU;
+        SELECT L.*, R.THANHTIEN FROM phieucungcap AS L LEFT JOIN ( SELECT SOPHIEU, SUM(THANHTIEN * SOLUONG) 
+        AS THANHTIEN FROM chitietphieucc GROUP BY SOPHIEU ) AS R ON L.SOPHIEU = R.SOPHIEU
         ";
         $result = mysqli_query($this->conn, $sql);
         $data = array();

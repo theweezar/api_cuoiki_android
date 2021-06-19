@@ -35,6 +35,7 @@
             <th>TÊN VĂN PHÒNG PHẨM</th>
             <th>SỐ LƯỢNG</th>
             <th>ĐƠN VỊ TÍNH</th>
+            <th>ĐƠN GIÁ</th>
             <th>THÀNH TIỀN</th>
         </tr>
         <?php
@@ -45,11 +46,13 @@
                 <td><?php echo $ct['SOLUONG'] ?></td>
                 <td><?php echo $ct['DVT'] ?></td>
                 <td><?php echo $ct['THANHTIEN'] ?></td>
+                <td><?php echo intval($ct['THANHTIEN']) * intval($ct['SOLUONG']) ?></td>
             </tr>
             <?php   
         }
         ?>
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td>TỔNG CỘNG</td>
