@@ -97,7 +97,7 @@ class PhieuCungCapController {
             if (strcmp($argv['params']['trangthai'], 'CONFIRMED') === 0) {
                 $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
                 $chitietcc = $phieuccDb->selectDetail($argv['params']);
-                $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
+                $tongcong = $phieuccDb->select($argv['params'])[0]['THANHTIEN'];
                 $emailTo = $emailInfo[0]['EMAIL'];
                 $nameTo = $emailInfo[0]['TENNCC'];
                 
@@ -159,7 +159,7 @@ class PhieuCungCapController {
         // ======================== //
         $emailInfo = $phieuccDb->getEmailInfo($argv['params']['sophieu']);
         $chitietcc = $phieuccDb->selectDetail($argv['params']);
-        $tongcong = $phieuccDb->select($argv)[0]['THANHTIEN'];
+        $tongcong = $phieuccDb->select($argv['params'])[0]['THANHTIEN'];
         $emailTo = $emailInfo[0]['EMAIL'];
         $nameTo = $emailInfo[0]['TENNCC'];
         

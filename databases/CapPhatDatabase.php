@@ -197,7 +197,7 @@ class CapPhatDatabase extends Database implements DatabaseInterface {
 
     public function select_listNV_withVPP_andPB(string $mapb, string $mavpp) {
         $result = mysqli_query($this->conn,"
-        SELECT DISTINCT  R.MANV , R.HOTEN, SUM(L.SOLUONG) AS SOLUONGMUON FROM
+        SELECT DISTINCT  R.MANV , R.HOTEN, SUM(R.SOLUONG) AS SOLUONGMUON FROM
         ( SELECT * FROM VANPHONGPHAM ) AS L
         JOIN
         (SELECT CP.MAVPP, CP.SOLUONG, CP.MANV ,NV.HOTEN,NV.MAPB FROM CAPPHAT 
